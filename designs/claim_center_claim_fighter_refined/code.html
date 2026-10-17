@@ -1,0 +1,318 @@
+<!DOCTYPE html><html class="light" lang="en"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+                "surface-bright": "#f8f9ff",
+                "primary-container": "#1a365d",
+                "on-tertiary-container": "#d4903b",
+                "primary": "#002045",
+                "on-primary-container": "#86a0cd",
+                "tertiary-container": "#4f2e00",
+                "primary-fixed-dim": "#adc7f7",
+                "tertiary-fixed-dim": "#ffb866",
+                "surface-container-lowest": "#ffffff",
+                "on-background": "#0b1c30",
+                "primary-fixed": "#d6e3ff",
+                "on-error-container": "#93000a",
+                "inverse-primary": "#adc7f7",
+                "error": "#ba1a1a",
+                "inverse-on-surface": "#eaf1ff",
+                "on-error": "#ffffff",
+                "surface": "#f8f9ff",
+                "error-container": "#ffdad6",
+                "on-primary-fixed": "#001b3c",
+                "outline-variant": "#c4c6cf",
+                "secondary": "#00696f",
+                "surface-container": "#e5eeff",
+                "secondary-fixed-dim": "#83d3da",
+                "surface-container-highest": "#d3e4fe",
+                "on-tertiary": "#ffffff",
+                "on-primary-fixed-variant": "#2d476f",
+                "on-surface-variant": "#43474e",
+                "on-secondary-fixed-variant": "#004f54",
+                "secondary-container": "#9cedf3",
+                "surface-dim": "#cbdbf5",
+                "outline": "#74777f",
+                "on-secondary-fixed": "#002022",
+                "on-secondary": "#ffffff",
+                "surface-variant": "#d3e4fe",
+                "on-tertiary-fixed-variant": "#673d00",
+                "surface-tint": "#455f88",
+                "secondary-fixed": "#9ff0f6",
+                "on-surface": "#0b1c30",
+                "tertiary-fixed": "#ffddba",
+                "background": "#f8f9ff",
+                "tertiary": "#321b00",
+                "surface-container-low": "#eff4ff",
+                "inverse-surface": "#213145",
+                "surface-container-high": "#dce9ff",
+                "on-primary": "#ffffff",
+                "on-tertiary-fixed": "#2b1700",
+                "on-secondary-container": "#036e74"
+            },
+            borderRadius: {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+            },
+            spacing: {
+                "container-max": "1280px",
+                "margin-desktop": "48px",
+                "base": "4px",
+                "margin-mobile": "16px",
+                "gutter": "24px"
+            },
+            fontFamily: {
+                "headline-md": ["Plus Jakarta Sans"],
+                "label-md": ["Inter"],
+                "body-md": ["Inter"],
+                "headline-lg": ["Plus Jakarta Sans"],
+                "headline-xl": ["Plus Jakarta Sans"],
+                "label-sm": ["Inter"],
+                "body-sm": ["Inter"],
+                "body-lg": ["Inter"],
+                "headline-lg-mobile": ["Plus Jakarta Sans"]
+            },
+            fontSize: {
+                "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }]
+            },
+            boxShadow: {
+                'level1': '0 4px 12px rgba(0, 32, 69, 0.02)',
+                'level2': '0 8px 24px rgba(0, 32, 69, 0.06)',
+            }
+          }
+        }
+      }
+</script></head><body class="bg-surface-bright text-on-surface font-body-md text-body-md antialiased flex min-h-screen">
+<!-- JSON Component: SideNavBar (Desktop) -->
+<nav class="hidden lg:flex flex-col h-screen fixed left-0 top-0 py-6 bg-surface-container shadow-sm w-64 z-40 border-r border-outline-variant/30">
+<div class="px-6 mb-10">
+<h1 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">BimaSetu</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">AI Insurance Bridge</p>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<!-- Inactive -->
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-variant transition-all rounded-lg font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">dashboard</span>
+<span class="">Dashboard</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-variant transition-all rounded-lg font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">description</span>
+<span class="">My Policies</span>
+</a>
+<!-- Active State Navigation -->
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-lg px-4 py-3 mx-2 scale-95 transition-transform duration-150 font-label-md text-label-md shadow-level1" href="#">
+<span class="material-symbols-outlined icon-fill">assignment_turned_in</span>
+<span class="">Claims</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-variant transition-all rounded-lg font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">smart_toy</span>
+<span class="">AI Assistant</span>
+</a>
+<!-- Inactive -->
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-variant transition-all rounded-lg font-label-md text-label-md group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary transition-colors">person</span>
+<span class="">Profile</span>
+</a>
+</div>
+<div class="px-4 mt-auto">
+
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 lg:ml-64 flex flex-col min-h-screen relative">
+<!-- JSON Component: TopNavBar (Mobile/Tablet) -->
+<header class="lg:hidden flex justify-between items-center w-full px-margin-mobile h-20 bg-surface-bright sticky top-0 z-30 shadow-sm border-b border-outline-variant/30">
+<h1 class="font-headline-md text-headline-md font-bold text-primary">BimaSetu</h1>
+<div class="flex items-center gap-4">
+<span class="font-label-md text-label-md text-primary font-bold border-b-2 border-primary pb-1">Claims</span>
+<button class="text-primary flex items-center gap-2 font-label-md text-label-md bg-surface-container py-2 px-4 rounded-full">
+<span class="material-symbols-outlined">chat</span>
+                    Connect WhatsApp
+                </button>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop w-full max-w-container-max mx-auto">
+<!-- Page Header -->
+<header class="mb-10 max-w-3xl">
+<h2 class="font-headline-lg-mobile md:font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary mb-4 tracking-tight">Claim Fighter</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Don't let an unfair rejection stand. Upload your denial letter, and our Setu AI will cross-reference it against the latest IRDAI guidelines to build a strong grievance case.</p>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Upload Section (Spans 4-->
+<div class="lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-level1 p-6 flex flex-col hover:shadow-level2 transition-shadow duration-300 relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-secondary to-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline-md text-headline-md text-primary">Upload Rejection</h3>
+<span class="material-symbols-outlined text-outline">upload_file</span>
+</div>
+<div class="flex-1 border-2 border-dashed border-outline-variant rounded-lg flex flex-col items-center justify-center p-8 bg-surface-bright text-center group-hover:border-secondary transition-colors cursor-pointer hover:bg-surface-container-low">
+<div class="w-16 h-16 bg-surface-container-highest rounded-full flex items-center justify-center mb-4 text-primary">
+<span class="material-symbols-outlined text-[32px]">document_scanner</span>
+</div>
+<p class="font-label-md text-label-md text-primary mb-2">Drag &amp; Drop PDF</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">or click to browse files</p>
+<p class="font-label-sm text-label-sm text-outline mt-4">Supported: PDF, JPG, PNG (Max 5MB)</p>
+</div>
+</div>
+<!-- AI Analysis Example (Spans 8 cols on desktop) -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-level1 p-0 flex flex-col overflow-hidden">
+<div class="bg-surface-container-low border-b border-outline-variant/50 p-4 px-6 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-secondary text-on-secondary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+</div>
+<h3 class="font-label-md text-label-md text-primary tracking-wide">AI CLAIM ANALYSIS</h3>
+</div>
+<span class="bg-error/10 text-error font-label-sm text-label-sm px-3 py-1 rounded-full border border-error/20 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                            High Contestability
+                        </span>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
+<!-- Left: Insurer's Stance -->
+<div>
+<p class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-3">Extracted Rejection Reason</p>
+<div class="p-4 bg-surface-bright border border-outline-variant/50 rounded-lg relative">
+<span class="material-symbols-outlined absolute -top-3 -left-3 text-outline-variant bg-surface-bright rounded-full p-1 text-[20px]">format_quote</span>
+<p class="font-body-md text-body-md text-on-surface-variant italic">"...claim denied under Clause 4.1. Non-disclosure of Pre-Existing Disease (PED) namely Hypertension, diagnosed prior to policy inception..."</p>
+</div>
+</div>
+<!-- Right: Setu Analysis -->
+<div class="relative">
+<div class="absolute left-0 top-2 bottom-2 w-1 bg-secondary rounded-full"></div>
+<div class="pl-6">
+<p class="font-label-sm text-label-sm text-secondary uppercase tracking-wider mb-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">gavel</span>
+                                    Setu IRDAI Match
+                                </p>
+<h4 class="font-headline-md text-[18px] text-primary mb-2">Section 45 Protection Applies</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4 leading-relaxed">
+                                    The policy has completed 36 continuous months. Under Section 45 of the Insurance Act (amended), no policy can be called into question on any ground, including misstatement or non-disclosure, after 3 years.
+                                </p>
+<div class="bg-surface-container-highest p-3 rounded-md border border-outline-variant/30 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-0.5">check_circle</span>
+<div>
+<p class="font-label-sm text-label-sm text-primary">Recommendation</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">File immediate grievance citing Section 45. Probability of reversal is high.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Track Existing Claims (Spans 8 cols) -->
+<div class="lg:col-span-8 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-level1 p-6">
+<div class="flex justify-between items-end mb-6 border-b border-outline-variant/30 pb-4">
+<div>
+<h3 class="font-headline-md text-headline-md text-primary">Track Claims</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Recent activity on your registered policies.</p>
+</div>
+<button class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-1">
+                            View All <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+<div class="flex flex-col gap-3">
+<!-- List Item 1 -->
+<div class="flex items-center justify-between p-4 bg-surface-bright rounded-lg border border-outline-variant/30 hover:border-outline-variant transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-error/10 text-error rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined icon-fill">health_and_safety</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary">Health Protect Pro - #10293</p>
+<p class="font-body-sm text-[13px] text-on-surface-variant">Max Bupa • Submitted 12 Oct</p>
+</div>
+</div>
+<div class="text-right flex flex-col items-end">
+<span class="bg-error/10 text-error font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-error/20 inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Rejected
+                                </span>
+<button class="font-label-sm text-label-sm text-secondary mt-2 hover:underline">Fight Claim</button>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="flex items-center justify-between p-4 bg-surface-bright rounded-lg border border-outline-variant/30 hover:border-outline-variant transition-colors">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-primary/10 text-primary rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined icon-fill">directions_car</span>
+</div>
+<div>
+<p class="font-label-md text-label-md text-primary">Comprehensive Motor - #10288</p>
+<p class="font-body-sm text-[13px] text-on-surface-variant">ICICI Lombard • Submitted 08 Oct</p>
+</div>
+</div>
+<div class="text-right">
+<span class="bg-primary/10 text-primary font-label-sm text-label-sm px-2.5 py-1 rounded-md border border-primary/20 inline-flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span> In Progress
+                                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- Grievance Letter Draft (Spans 4 cols) -->
+<div class="lg:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl shadow-level1 flex flex-col overflow-hidden relative">
+<!-- Subtle background pattern for document feel -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#002045 1px, transparent 1px); background-size: 16px 16px;"></div>
+<div class="p-6 flex-1 relative z-10 flex flex-col">
+<div class="flex items-start justify-between mb-4">
+<div class="bg-secondary/10 text-secondary w-12 h-12 rounded-lg flex items-center justify-center border border-secondary/20">
+<span class="material-symbols-outlined text-[24px]">contract_edit</span>
+</div>
+</div>
+<h3 class="font-headline-md text-[20px] text-primary mb-2">Grievance Draft Ready</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-6 line-clamp-3 relative">
+                            "To the Grievance Redressal Officer, <br>Subject: Appeal against unjust repudiation of claim #10293 under Section 45..."
+                            <span class="absolute bottom-0 right-0 w-1/2 h-6 bg-gradient-to-l from-surface-container-lowest to-transparent"></span>
+</p>
+<div class="mt-auto pt-6 border-t border-outline-variant/30 flex flex-col gap-3">
+<button class="w-full bg-secondary text-on-secondary font-label-md text-label-md py-3 rounded-lg font-bold flex justify-center items-center gap-2 hover:bg-[#005a5f] transition-colors shadow-sm">
+<span class="material-symbols-outlined">download</span>
+                                Download PDF
+                            </button>
+<button class="w-full bg-transparent text-primary border-2 border-primary font-label-md text-label-md py-2.5 rounded-lg font-bold hover:bg-primary/5 transition-colors">
+                                Edit Draft
+                            </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- JSON Component: Footer -->
+<footer class="w-full mt-auto bg-surface-container-lowest border-t border-outline-variant shadow-none">
+<div class="w-full px-margin-desktop py-12 max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-4 gap-gutter text-on-surface font-body-sm text-body-sm">
+<div class="md:col-span-1">
+<h2 class="font-headline-md text-headline-md text-primary mb-4">BimaSetu</h2>
+<p class="text-on-surface-variant mb-4">© 2024 BimaSetu. All rights reserved.</p>
+</div>
+<div class="md:col-span-3 flex flex-wrap gap-x-8 gap-y-4 md:justify-end">
+<a class="text-on-surface-variant hover:text-primary transition-colors font-semibold" href="#">IRDAI Disclaimers</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-semibold" href="#">Bank Partners</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-semibold" href="#">Emergency Contacts</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors font-semibold" href="#">Privacy Policy</a>
+<span class="text-on-surface-variant font-semibold">Language: English/हिंदी</span>
+</div>
+</div>
+</footer>
+</div>
+<!-- Unified Chat Widget (Setu FAB) -->
+
+
+
+
+</body></html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Policies - BimaSetu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#321b00",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary-container": "#036e74",
+                        "outline-variant": "#c4c6cf",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary-fixed-dim": "#adc7f7",
+                        "inverse-surface": "#213145",
+                        "surface-container": "#e5eeff",
+                        "on-primary-container": "#86a0cd",
+                        "secondary-fixed-dim": "#83d3da",
+                        "tertiary-fixed-dim": "#ffb866",
+                        "primary-container": "#1a365d",
+                        "secondary-container": "#9cedf3",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#cbdbf5",
+                        "secondary": "#00696f",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary-fixed": "#002022",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#4f2e00",
+                        "on-primary-fixed": "#001b3c",
+                        "outline": "#74777f",
+                        "secondary-fixed": "#9ff0f6",
+                        "error": "#ba1a1a",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#ffddba",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "surface-tint": "#455f88",
+                        "on-surface": "#0b1c30",
+                        "on-background": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#673d00",
+                        "on-surface-variant": "#43474e",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary-container": "#d4903b",
+                        "error-container": "#ffdad6",
+                        "primary": "#002045",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#adc7f7",
+                        "inverse-on-surface": "#eaf1ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row">
+<!-- Mobile Top App Bar (Hidden on Desktop) -->
+<header class="md:hidden flex justify-between items-center w-full px-margin-mobile h-16 z-50 bg-surface border-b border-outline-variant shadow-sm sticky top-0">
+<div class="font-headline-md text-headline-md font-bold text-primary">BimaSetu</div>
+<div class="flex gap-4 items-center">
+<span class="material-symbols-outlined text-primary cursor-pointer hover:text-secondary transition-colors" data-icon="search">search</span>
+<img class="w-8 h-8 rounded-full object-cover shadow-sm border border-outline-variant" data-alt="A small circular user profile picture showing a professional headshot of a person on a clean background, conveying trust and reliability suitable for an insurance app dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHG_OJXmyXyi8szMlDfmrZOwi6V7LLaphtq9NPk73Prm0cskDFcc872QGEhmrHnZNnnGG46mws9mcxsbeCbsCulyZN8aHvM7-AMVe6dzy_MnxuPeL84wnkp4hL04Hdd-3ho9W4IP5p-0weRYWEJwdqFOxxDhQFYIs-lHehGA-o83tIy6AFqv0Jk9S4kdQFHCsMurKEn1daKHfL6Smxykuk4kKiMdgs0SNWdD8TM5oCf8Ak2ijepPsY">
+</div>
+</header>
+<!-- Side Navigation (Visible on Desktop) -->
+<nav class="hidden md:flex flex-col h-full py-6 space-y-2 bg-surface-container w-64 fixed left-0 top-0 border-r border-outline-variant shadow-sm z-40">
+<div class="px-6 mb-8 flex flex-col items-center">
+<div class="w-16 h-16 rounded-full bg-primary flex items-center justify-center text-on-primary shadow-sm mb-4">
+<span class="material-symbols-outlined text-[32px]" data-icon="shield">shield</span>
+</div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">BimaSetu</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Insurance Intelligence</p>
+</div>
+<div class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg bg-secondary-container text-on-secondary-container font-label-md text-label-md shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+                My Policies
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="assignment_turned_in">assignment_turned_in</span>
+                Claims
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="smart_toy">smart_toy</span>
+                AI Assistant
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-md text-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+                Profile
+            </a>
+</div>
+
+<div class="px-4 border-t border-outline-variant pt-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="settings">settings</span>
+                Settings
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out font-label-sm text-label-sm" href="#">
+<span class="material-symbols-outlined text-[18px]" data-icon="logout">logout</span>
+                Logout
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 w-full flex flex-col min-h-screen">
+<!-- Desktop Header -->
+<header class="hidden md:flex justify-between items-center px-margin-desktop py-6 sticky top-0 bg-background/90 backdrop-blur-md z-30">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">My Policies</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage your health and life insurance coverage.</p>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-full text-body-sm focus:border-secondary focus:ring-1 focus:ring-secondary outline-none w-64 transition-all" placeholder="Search policies..." type="text">
+</div>
+<button class="relative text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<img class="w-10 h-10 rounded-full object-cover shadow-sm border-2 border-surface-container-highest cursor-pointer hover:border-secondary transition-colors" data-alt="A small circular user profile picture showing a professional headshot of a person on a clean background, conveying trust and reliability suitable for an insurance app dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZBHUErIUnHW9kQo_Tr9McV11aNHpIt-qdqCNslphAsVLZpACarBTE81j8TR2UoMjuABLPQSEIwYp8AaAzXxIBlLIXwM6g04Hv5xHJkzsdeyf70CTYQ4H1XhsKVkkjHmmkMAL7eipfcGfCl5Yz2abhHvGgPNng3zwML6JoTDDHIZtG2G3KRU8Fvu9j86GKvTsAHfw-w_kIoDUPRzxBPxHJhXF-q8KYwljdZE-HQGkxOC16kQ8nWQv2">
+</div>
+</header>
+<div class="px-margin-mobile md:px-margin-desktop py-6 flex-1 flex flex-col gap-8 pb-32 md:pb-12">
+<!-- Mobile Page Title -->
+<div class="md:hidden mb-2">
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">My Policies</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage your coverage.</p>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Insurance Policies Section (Left/Top) -->
+<section class="lg:col-span-7 flex flex-col gap-4">
+<div class="flex justify-between items-end mb-2">
+<h3 class="font-headline-md text-headline-md text-primary">Insurance Policies</h3>
+<button class="text-secondary font-label-md text-label-md hover:underline flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]" data-icon="add_circle">add_circle</span> Add New
+                        </button>
+</div>
+<!-- Policy Card: Star Health Comprehensive Gold -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm hover:shadow-md hover:border-surface-tint transition-all duration-300 p-6 flex flex-col gap-6 relative overflow-hidden group">
+<!-- Subtle background accent -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-fixed opacity-20 rounded-bl-full -z-10 group-hover:scale-110 transition-transform duration-500"></div>
+<div class="flex justify-between items-start">
+<div class="flex gap-4 items-center">
+<div class="w-12 h-12 bg-surface-container flex items-center justify-center rounded-lg border border-outline-variant text-primary">
+<span class="material-symbols-outlined text-[28px]" data-icon="health_and_safety" style="font-variation-settings: 'FILL' 1;">health_and_safety</span>
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary leading-tight">Star Health</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant font-medium">Comprehensive Gold</p>
+</div>
+</div>
+<span class="bg-secondary/10 text-secondary font-label-sm text-label-sm px-3 py-1 rounded-full border border-secondary/20">Active</span>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-6 py-4 border-y border-outline-variant/50">
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Sum Insured</span>
+<span class="font-body-lg text-body-lg font-semibold text-on-surface">₹10,00,000</span>
+</div>
+<div class="flex flex-col gap-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Policy No.</span>
+<span class="font-body-md text-body-md text-on-surface font-mono">P-18293-8472</span>
+</div>
+<div class="flex flex-col gap-1 col-span-2 md:col-span-1">
+<span class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Expiry Date</span>
+<span class="font-body-md text-body-md text-on-surface flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-on-surface-variant" data-icon="event">event</span> 15 Nov 2025
+                                </span>
+</div>
+</div>
+<div class="flex justify-between items-center mt-2">
+<div class="flex -space-x-2">
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest object-cover z-20" data-alt="A tiny circular profile picture of an adult male policyholder, clean background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA60kPePJTjwRjo5P7-mebuOUXWmboOWyRtG7Hvi4vsMUXmy2QsevqhsPX53rRxT7qP-v412amlTohBWzSyYKdVs31ykLq0HEQwLAkjCvD1m-rhWeg4eko7ebkXLHOcBw5f6o7FOj_4PXw8T6oy9pKLNAf5suFMzsrgmJN8hiKWDFA9I99FepGYiaLh63yP7Yb8np1mKqQrKY1ZFSFyrbUHI4Dmw_IQ3ljhWPVVESH03nOWeNo9z7xO">
+<img class="w-8 h-8 rounded-full border-2 border-surface-container-lowest object-cover z-10" data-alt="A tiny circular profile picture of an adult female policyholder, clean background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHrp0r9I8wesUZFQHb1WHXzJFAWrwko9xJhvaaiHVGFD9vNwhi0xBv5Vz6AgP6HVGaXNKvBKqPZEMXzr17dpc46WPslFvWFLa_8mlzc3O-CjRYxcoOBul9iitbg2dfOXM6qfKB4cNMMzE9W85lQli9bYPxl1Kxzj0fibvyybP0HQu6kz3kMCizO88vVnkoIsPWcwlpHklerNKmWQMrsjZGek5d-RsGEWpVbmzsK-10swdBFJXi08h2">
+<div class="w-8 h-8 rounded-full border-2 border-surface-container-lowest bg-surface-container-high flex items-center justify-center font-label-sm text-label-sm text-on-surface z-0">+2</div>
+</div>
+<button class="px-4 py-2 rounded-lg border-2 border-primary-container text-primary-container font-label-md text-label-md hover:bg-primary-container hover:text-on-primary transition-colors">
+                                View Details
+                            </button>
+</div>
+</div>
+</section>
+<!-- Card Coverage Section (Right/Bottom) -->
+<section class="lg:col-span-5 flex flex-col gap-4 mt-8 lg:mt-0">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Card Coverage</h3>
+<!-- Empty State for Cards -->
+<div class="bg-surface-container-lowest border border-outline-variant border-dashed rounded-xl p-8 flex flex-col items-center justify-center text-center h-full min-h-[350px]">
+<div class="w-48 h-32 mb-6 opacity-90 relative">
+<!-- Using a stylized CSS shape with icon as fallback to illustration styling guidelines -->
+<div class="absolute inset-0 bg-surface-container rounded-xl rotate-[-5deg] border border-outline-variant/50 shadow-sm"></div>
+<div class="absolute inset-0 bg-surface-container-lowest rounded-xl border border-outline-variant shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-[48px] text-outline-variant" data-icon="credit_card">credit_card</span>
+</div>
+<img alt="" class="absolute inset-0 w-full h-full object-contain z-10 drop-shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTWE9-_Pl4cZva2zdw4FwyNKVSel6xjC_-x7ZVpevD9QV5Wy8WTB1KSyLwXCMwilLWPpQH_csykALL1s5WJcn0a6C0TjbojtuUE9ZGgvMqpKOMBC9QY7kGI72h9IkwkOR_Xmsqk7f4P8Z3NmsgDyXT1iBapk7ThRF1xeerhL3klP89K-024iBxycNxt9m5vxoU7EmmOv2rW8ajBwn66Cw5hdWkbNiVUTQPWGZ9zCI6AUsSJ-N78KZ2">
+</div>
+<h4 class="font-headline-md text-headline-md text-on-surface mb-2">No Cards Linked</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-[250px] mb-8">
+                            Link your health insurance e-cards for quick access during cashless claims at hospitals.
+                        </p>
+<button class="bg-secondary text-on-secondary px-6 py-3 rounded-lg font-label-md text-label-md shadow-sm hover:shadow-md hover:opacity-90 transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                            Link Card
+                        </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+<!-- Mobile Bottom Nav Bar (Hidden on Desktop) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full bg-surface border-t border-outline-variant shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] z-50 px-4 py-2 flex justify-between items-center h-[72px]">
+<a class="flex flex-col items-center justify-center w-16 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-label-sm text-[10px]">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 text-secondary font-medium" href="#">
+<div class="bg-secondary-container text-on-secondary-container rounded-full w-12 h-8 flex items-center justify-center mb-1">
+<span class="material-symbols-outlined text-[20px]" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<span class="font-label-sm text-[10px]">Policies</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1" data-icon="assignment_turned_in">assignment_turned_in</span>
+<span class="font-label-sm text-[10px]">Claims</span>
+</a>
+<a class="flex flex-col items-center justify-center w-16 text-on-surface-variant" href="#">
+<span class="material-symbols-outlined text-[24px] mb-1" data-icon="person">person</span>
+<span class="font-label-sm text-[10px]">Profile</span>
+</a>
+</nav>
+
+
+</body></html>

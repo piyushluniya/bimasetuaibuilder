@@ -1,0 +1,364 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>My Policies - BimaSetu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary": "#321b00",
+                        "surface-container-high": "#dce9ff",
+                        "on-secondary-container": "#036e74",
+                        "outline-variant": "#c4c6cf",
+                        "surface-container-highest": "#d3e4fe",
+                        "primary-fixed-dim": "#adc7f7",
+                        "inverse-surface": "#213145",
+                        "surface-container": "#e5eeff",
+                        "on-primary-container": "#86a0cd",
+                        "secondary-fixed-dim": "#83d3da",
+                        "tertiary-fixed-dim": "#ffb866",
+                        "primary-container": "#1a365d",
+                        "secondary-container": "#9cedf3",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#cbdbf5",
+                        "secondary": "#00696f",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-tertiary": "#ffffff",
+                        "primary-fixed": "#d6e3ff",
+                        "surface-bright": "#f8f9ff",
+                        "on-secondary-fixed": "#002022",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#4f2e00",
+                        "on-primary-fixed": "#001b3c",
+                        "outline": "#74777f",
+                        "secondary-fixed": "#9ff0f6",
+                        "error": "#ba1a1a",
+                        "background": "#f8f9ff",
+                        "tertiary-fixed": "#ffddba",
+                        "surface-container-low": "#eff4ff",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "surface-tint": "#455f88",
+                        "on-surface": "#0b1c30",
+                        "on-background": "#0b1c30",
+                        "surface-container-lowest": "#ffffff",
+                        "surface": "#f8f9ff",
+                        "on-tertiary-fixed-variant": "#673d00",
+                        "on-surface-variant": "#43474e",
+                        "surface-variant": "#d3e4fe",
+                        "on-tertiary-container": "#d4903b",
+                        "error-container": "#ffdad6",
+                        "primary": "#002045",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "on-primary": "#ffffff",
+                        "inverse-primary": "#adc7f7",
+                        "inverse-on-surface": "#eaf1ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "4px",
+                        "container-max": "1280px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", { "lineHeight": "16px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-xl": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .bima-shadow-level-1 {
+            box-shadow: 0 4px 12px rgba(0, 32, 69, 0.02);
+        }
+        .bima-shadow-level-2 {
+            box-shadow: 0 12px 24px rgba(0, 32, 69, 0.06);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex fixed left-0 top-0 h-full w-64 bg-surface-container dark:bg-inverse-surface shadow-sm flex-col py-6 space-y-2 z-40 border-r border-surface-container-low">
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-primary text-on-primary flex items-center justify-center font-headline-md font-bold">B</div>
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed-dim">BimaSetu</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Insurance Intelligence</p>
+</div>
+</div>
+<div class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-on-primary-fixed-variant rounded-lg mx-2 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 bg-secondary-container dark:bg-on-secondary-fixed-variant text-on-secondary-container dark:text-secondary-fixed rounded-lg mx-2 transition-all duration-200 ease-in-out shadow-sm" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-label-md text-label-md">My Policies</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-on-primary-fixed-variant rounded-lg mx-2 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">assignment_turned_in</span>
+<span class="font-label-md text-label-md">Claims</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-on-primary-fixed-variant rounded-lg mx-2 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-secondary">smart_toy</span>
+<span class="font-label-md text-label-md">AI Assistant</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-3 text-on-surface-variant dark:text-outline-variant hover:bg-surface-container-high dark:hover:bg-on-primary-fixed-variant rounded-lg mx-2 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</div>
+<div class="px-6 mt-auto space-y-4">
+
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span class="font-label-sm text-label-sm">Settings</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg mx-2 transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined text-sm">logout</span>
+<span class="font-label-sm text-label-sm">Logout</span>
+</a>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="md:ml-64 flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop h-16 z-30 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline shadow-sm sticky top-0">
+<div class="flex items-center gap-4">
+<!-- Mobile menu toggle -->
+<button class="md:hidden text-on-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden md:flex items-center bg-surface-container-low rounded-full px-4 py-2 border border-outline-variant focus-within:border-secondary transition-colors">
+<span class="material-symbols-outlined text-outline mr-2 text-sm">search</span>
+<input class="bg-transparent border-none outline-none font-body-sm text-body-sm text-on-surface placeholder-outline-variant w-64 focus:ring-0 p-0" placeholder="Search policies, claims..." type="text">
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex gap-4">
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors cursor-pointer" href="#">Help</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-secondary transition-colors cursor-pointer" href="#">Support</a>
+</div>
+<div class="flex items-center gap-3 border-l border-outline-variant pl-6">
+<button class="text-on-surface-variant hover:text-secondary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<button class="text-on-surface-variant hover:text-secondary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<img alt="User profile" class="w-8 h-8 rounded-full border border-outline-variant ml-2" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChjM956Znm6pTNK_g3VpPOu9k_BPPqEKNZJTZzslh2qr5v1svQVfmMgN96q0nIlc3PKQAAIj2QIlaVCTxTrLhJ-2PzdY1TXH3xfvyvEEn3hDRupUymp7wSoxV_OMRH6fa_OVzHLIyH9PlINrQzphqwXcEdZ4X0Sf1Qn4u6ayaoeo12IvPusN2d3XXxslmRiThC0CXuT1-upVFiYs07P_RIdrgwBNS4m0tY86FzinfUNvjGNMuV7elx">
+</div>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="flex-1 p-margin-mobile md:p-margin-desktop space-y-12">
+<!-- Page Header -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-surface-container-high pb-6">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-xl text-headline-lg-mobile md:text-headline-xl text-primary font-bold tracking-tight">My Policies</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 max-w-2xl">Manage your active health insurance and review the hidden benefits embedded within your credit cards.</p>
+</div>
+<button class="flex items-center gap-2 px-4 py-2 border-2 border-secondary text-secondary rounded-lg font-label-md text-label-md hover:bg-secondary hover:text-on-secondary transition-all">
+<span class="material-symbols-outlined text-sm">add</span>
+                    Upload Policy
+                </button>
+</header>
+<!-- Card Coverage Section (Bento Grid) -->
+<section class="space-y-6">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">credit_card</span>
+<h3 class="font-headline-md text-headline-md text-primary">Card Coverage Intelligence</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Total Coverage Summary Card (4 cols) -->
+<div class="md:col-span-4 bg-primary rounded-xl p-6 relative overflow-hidden flex flex-col justify-between shadow-lg text-on-primary min-h-[220px]">
+<div class="absolute top-0 right-0 -mr-8 -mt-8 w-40 h-40 bg-surface-tint opacity-20 rounded-full blur-2xl pointer-events-none"></div>
+<div>
+<p class="font-label-md text-label-md text-primary-fixed-dim uppercase tracking-wider">Total Card Coverage</p>
+<h4 class="font-headline-xl text-headline-xl mt-2">₹4,50,00,000</h4>
+<p class="font-body-sm text-body-sm text-surface-container-highest mt-1">Combined latent insurance value</p>
+</div>
+<div class="flex items-center gap-2 mt-6 pt-4 border-t border-surface-tint/30">
+<span class="material-symbols-outlined text-secondary-fixed">shield_lock</span>
+<span class="font-label-sm text-label-sm text-surface-container">Protected across 2 premium cards</span>
+</div>
+</div>
+<!-- HDFC Regalia Card (4 cols) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-6 bima-shadow-level-1 hover:bima-shadow-level-2 transition-all duration-300 group cursor-default flex flex-col relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-[#004b87]"></div> <!-- subtle brand hint -->
+<div class="flex justify-between items-start mb-6">
+<div>
+<h4 class="font-headline-md text-headline-md text-primary">HDFC Regalia</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Credit Card Benefits</p>
+</div>
+<div class="w-10 h-6 bg-surface-container rounded border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-outline text-sm">contactless</span>
+</div>
+</div>
+<div class="space-y-4 flex-1">
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Air Accident Cover</p>
+<p class="font-label-md text-label-md text-primary">₹1,00,00,000</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Emergency Medical (Overseas)</p>
+<p class="font-label-md text-label-md text-primary">₹15,00,000</p>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<span class="px-3 py-1 bg-secondary/10 text-secondary font-label-sm text-label-sm rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Active
+                            </span>
+<button class="text-secondary font-label-sm text-label-sm hover:underline group-hover:text-primary transition-colors">View Details</button>
+</div>
+</div>
+<!-- Amex Platinum Card (4 cols) -->
+<div class="md:col-span-4 bg-surface-container-lowest border border-outline-variant rounded-xl p-6 bima-shadow-level-1 hover:bima-shadow-level-2 transition-all duration-300 group cursor-default flex flex-col relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-[#8c9196]"></div> <!-- subtle brand hint -->
+<div class="flex justify-between items-start mb-6">
+<div>
+<h4 class="font-headline-md text-headline-md text-primary">Amex Platinum</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Charge Card Benefits</p>
+</div>
+<div class="w-10 h-6 bg-surface-container rounded border border-outline-variant flex items-center justify-center">
+<span class="material-symbols-outlined text-outline text-sm">contactless</span>
+</div>
+</div>
+<div class="space-y-4 flex-1">
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Travel Insurance Cover</p>
+<p class="font-label-md text-label-md text-primary">₹3,00,00,000</p>
+</div>
+<div class="bg-surface-container-low p-3 rounded-lg border border-surface-container-high">
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Purchase Protection</p>
+<p class="font-label-md text-label-md text-primary">₹1,00,000 / event</p>
+</div>
+</div>
+<div class="mt-6 flex items-center justify-between">
+<span class="px-3 py-1 bg-secondary/10 text-secondary font-label-sm text-label-sm rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Active
+                            </span>
+<button class="text-secondary font-label-sm text-label-sm hover:underline group-hover:text-primary transition-colors">View Details</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Insurance Policies Section -->
+<section class="space-y-6 pt-4 border-t border-surface-container-high">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary">health_and_safety</span>
+<h3 class="font-headline-md text-headline-md text-primary">Primary Insurance Policies</h3>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Star Health Insurance Card (6 cols) -->
+<div class="md:col-span-6 bg-surface-container-lowest border border-outline-variant rounded-xl bima-shadow-level-1 overflow-hidden hover:bima-shadow-level-2 transition-shadow duration-300">
+<!-- Card Header -->
+<div class="bg-surface-container-low p-6 border-b border-surface-container-high flex justify-between items-start">
+<div class="flex gap-4 items-center">
+<div class="w-12 h-12 bg-surface rounded-lg border border-outline-variant flex items-center justify-center p-2 shadow-sm text-primary font-bold font-headline-md">
+                                    S<!-- Placeholder for Star Health Logo -->
+</div>
+<div>
+<h4 class="font-headline-md text-headline-md text-primary">Star Comprehensive</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Star Health &amp; Allied Insurance</p>
+</div>
+</div>
+<span class="px-3 py-1 bg-secondary/10 text-secondary font-label-sm text-label-sm rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">verified</span> Active
+                            </span>
+</div>
+<!-- Card Body -->
+<div class="p-6">
+<div class="grid grid-cols-2 gap-6 mb-6">
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Policy Number</p>
+<p class="font-label-md text-label-md text-on-surface font-mono">P/120000/01/2024</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Base Sum Insured</p>
+<p class="font-label-md text-label-md text-on-surface">₹10,00,000</p>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Members Covered</p>
+<div class="flex items-center gap-2 mt-1">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-surface flex items-center justify-center text-[10px] font-bold text-primary z-20">Me</div>
+<div class="w-6 h-6 rounded-full bg-surface-container border border-surface flex items-center justify-center text-[10px] font-bold text-primary z-10">W</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-low border border-surface flex items-center justify-center text-[10px] font-bold text-primary z-0">C</div>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface">Family Floater (3)</span>
+</div>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant mb-1">Renewal Date</p>
+<p class="font-label-md text-label-md text-on-surface">15 Oct 2024</p>
+</div>
+</div>
+<!-- Action Footer -->
+<div class="flex items-center gap-3 pt-4 border-t border-surface-container-high">
+<button class="flex-1 py-2 px-4 bg-surface-container text-primary font-label-md text-label-md rounded-lg hover:bg-surface-container-high transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">visibility</span> View Document
+                                </button>
+<button class="flex-1 py-2 px-4 bg-secondary text-on-secondary font-label-md text-label-md rounded-lg hover:bg-on-secondary-container transition-colors shadow-sm">
+                                    File a Claim
+                                </button>
+</div>
+</div>
+</div>
+<!-- Empty State / Add New Placeholder (6 cols) -->
+<div class="md:col-span-6 bg-transparent border-2 border-dashed border-outline-variant rounded-xl flex flex-col items-center justify-center p-8 text-center hover:bg-surface-container-lowest hover:border-secondary transition-all cursor-pointer min-h-[320px]">
+<div class="w-16 h-16 bg-surface-container rounded-full flex items-center justify-center mb-4 text-secondary">
+<span class="material-symbols-outlined text-3xl">post_add</span>
+</div>
+<h4 class="font-headline-md text-headline-md text-primary mb-2">Upload Another Policy</h4>
+<p class="font-body-sm text-body-sm text-on-surface-variant max-w-xs">Securely upload your term life, vehicle, or property insurance to get unified intelligence.</p>
+</div>
+</div>
+</section>
+</main>
+</div>
+
+
+</body></html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>BimaSetu - Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-bright": "#f8f9ff",
+                        "outline": "#74777f",
+                        "on-tertiary-fixed-variant": "#673d00",
+                        "on-primary-container": "#86a0cd",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#e5eeff",
+                        "background": "#f8f9ff",
+                        "inverse-surface": "#213145",
+                        "secondary-fixed": "#9ff0f6",
+                        "tertiary": "#321b00",
+                        "tertiary-container": "#4f2e00",
+                        "secondary-fixed-dim": "#83d3da",
+                        "inverse-on-surface": "#eaf1ff",
+                        "on-surface": "#0b1c30",
+                        "secondary-container": "#9cedf3",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c4c6cf",
+                        "primary": "#002045",
+                        "error-container": "#ffdad6",
+                        "surface": "#f8f9ff",
+                        "on-primary-fixed": "#001b3c",
+                        "inverse-primary": "#adc7f7",
+                        "on-tertiary-container": "#d4903b",
+                        "surface-variant": "#d3e4fe",
+                        "primary-fixed": "#d6e3ff",
+                        "on-error-container": "#93000a",
+                        "secondary": "#00696f",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#ffb866",
+                        "primary-container": "#1a365d",
+                        "surface-container-low": "#eff4ff",
+                        "surface-container-highest": "#d3e4fe",
+                        "on-tertiary": "#ffffff",
+                        "on-tertiary-fixed": "#2b1700",
+                        "surface-container-high": "#dce9ff",
+                        "on-primary-fixed-variant": "#2d476f",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#ffddba",
+                        "surface-dim": "#cbdbf5",
+                        "on-secondary-fixed-variant": "#004f54",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary-fixed": "#002022",
+                        "on-secondary-container": "#036e74",
+                        "primary-fixed-dim": "#adc7f7",
+                        "on-background": "#0b1c30",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#455f88"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "48px",
+                        "base": "4px",
+                        "container-max": "1280px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Plus Jakarta Sans"],
+                        "headline-lg": ["Plus Jakarta Sans"],
+                        "body-sm": ["Inter"],
+                        "headline-lg-mobile": ["Plus Jakarta Sans"],
+                        "label-md": ["Inter"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "fontWeight": "500"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 12px rgba(0, 32, 69, 0.02);
+            transition: all 0.3s ease;
+        }
+        .glass-card:hover {
+            box-shadow: 0 12px 24px rgba(0, 32, 69, 0.06);
+            transform: translateY(-2px);
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #f8f9ff 0%, #e5eeff 100%);
+        }
+        .ai-chat-btn {
+            box-shadow: 0 8px 24px rgba(0, 105, 111, 0.2);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ai-chat-btn:hover {
+            transform: scale(1.05) translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 105, 111, 0.3);
+        }
+    </style>
+</head>
+<body class="bg-surface-bright text-on-surface font-body-md antialiased overflow-x-hidden min-h-screen flex">
+<!-- SideNavBar (from JSON) -->
+<nav class="hidden lg:flex flex-col h-screen fixed left-0 top-0 py-6 bg-surface-container dark:bg-surface-container-high shadow-sm docked h-full w-64 z-50">
+<div class="px-6 mb-8">
+<h1 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary-fixed">BimaSetu</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-80 mt-1">AI Insurance Bridge</p>
+</div>
+<ul class="flex-1 space-y-2 px-2">
+<!-- Active Tab: Dashboard -->
+<li class="">
+<a class="flex items-center gap-3 bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-lg px-4 py-3 mx-2 scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-label-md text-label-md">Dashboard</span>
+</a>
+</li>
+<!-- Inactive Tabs -->
+<li class="">
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-md text-label-md">My Policies</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">assignment_turned_in</span>
+<span class="font-label-md text-label-md">Claims</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">smart_toy</span>
+<span class="font-label-md text-label-md">AI Assistant</span>
+</a>
+</li>
+<li class="">
+<a class="flex items-center gap-3 text-on-surface-variant dark:text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-variant dark:hover:bg-inverse-surface transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-md text-label-md">Profile</span>
+</a>
+</li>
+</ul>
+<div class="px-6 mt-auto">
+
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 lg:ml-64 p-margin-mobile md:p-margin-desktop bg-surface-bright min-h-screen">
+<header class="mb-8 md:mb-12 flex justify-between items-end">
+<div>
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary">Overview</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2">Welcome back, Rahul. Your Setu is active.</p>
+</div>
+<div class="hidden md:flex items-center gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-full px-4 py-2 flex items-center gap-2">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm w-48 text-on-surface placeholder-outline-variant outline-none" placeholder="Ask Setu anything..." type="text">
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center text-primary relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter max-w-container-max mx-auto">
+<!-- Left Column: Primary Cards (8 cols) -->
+<div class="md:col-span-8 flex flex-col gap-gutter">
+<!-- 1. Your Insurance Card (Digital Twin) -->
+<section class="glass-card rounded-xl p-6 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-64 h-64 bg-primary-container opacity-5 rounded-full -translate-y-1/2 translate-x-1/4 blur-3xl"></div>
+<div class="flex justify-between items-start mb-6 relative z-10">
+<div>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-secondary bg-opacity-10 text-secondary font-label-sm text-label-sm mb-3">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Active Policy
+                            </span>
+<h3 class="font-headline-md text-headline-md text-primary">Star Health Comprehensive Gold</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Policy #SH-29384-IN • Valid till Oct 2024</p>
+</div>
+<div class="w-12 h-12 bg-surface-container-low rounded-lg flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary text-2xl">health_and_safety</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6 relative z-10">
+<div class="bg-surface-bright rounded-lg p-3 border border-outline-variant border-opacity-50">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Sum Insured</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">₹5L</p>
+</div>
+<div class="bg-surface-bright rounded-lg p-3 border border-outline-variant border-opacity-50">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Room Rent</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">1% SI <span class="text-label-sm text-on-surface-variant font-normal">/day</span></p>
+</div>
+<div class="bg-surface-bright rounded-lg p-3 border border-outline-variant border-opacity-50">
+<p class="font-label-sm text-label-sm text-on-surface-variant">No Claim Bonus</p>
+<p class="font-headline-md text-headline-md text-secondary mt-1">₹50K</p>
+</div>
+<div class="bg-surface-bright rounded-lg p-3 border border-outline-variant border-opacity-50">
+<p class="font-label-sm text-label-sm text-on-surface-variant">Copay</p>
+<p class="font-headline-md text-headline-md text-primary mt-1">None</p>
+</div>
+</div>
+<div class="pt-4 border-t border-outline-variant border-opacity-50 flex flex-wrap gap-2 relative z-10">
+<span class="px-3 py-1 bg-surface-container-low rounded text-body-sm font-body-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">timer</span> Maternity: 12m wait</span>
+<span class="px-3 py-1 bg-surface-container-low rounded text-body-sm font-body-sm text-on-surface-variant flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">check</span> Daycare covered</span>
+</div>
+</section>
+<!-- 2. Hidden Card Insurance (Discovery feature) -->
+<section class="glass-card rounded-xl p-6 gradient-bg relative border-primary-container border-opacity-20">
+<div class="flex flex-col md:flex-row gap-6 items-center">
+<div class="w-full md:w-1/3 relative">
+<!-- Simulated Credit Card Visual -->
+<div class="aspect-[1.58/1] rounded-lg bg-gradient-to-br from-inverse-surface to-primary shadow-lg p-4 flex flex-col justify-between text-on-primary overflow-hidden relative">
+<div class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/4"></div>
+<div class="flex justify-between items-center">
+<span class="font-headline-sm font-bold text-lg">HDFC Regalia</span>
+<span class="material-symbols-outlined">credit_card</span>
+</div>
+<div>
+<p class="font-label-sm opacity-80">HIDDEN BENEFITS</p>
+<p class="font-headline-md mt-1">₹1.5Cr <span class="font-body-sm opacity-80 font-normal">Value</span></p>
+</div>
+</div>
+</div>
+<div class="w-full md:w-2/3">
+<h3 class="font-headline-md text-headline-md text-primary mb-2">Hidden Insurance Discovered</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-4">Setu found complimentary coverage linked to your mapped credit card.</p>
+<div class="space-y-3">
+<div class="flex justify-between items-center p-3 bg-white rounded-lg border border-outline-variant border-opacity-30">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[18px]">flight</span></div>
+<span class="font-label-md text-label-md text-on-surface">Air Accident Cover</span>
+</div>
+<span class="font-label-md text-label-md text-primary">₹1 Cr</span>
+</div>
+<div class="flex justify-between items-center p-3 bg-white rounded-lg border border-outline-variant border-opacity-30">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center"><span class="material-symbols-outlined text-primary text-[18px]">personal_injury</span></div>
+<span class="font-label-md text-label-md text-on-surface">Personal Accident Cover</span>
+</div>
+<span class="font-label-md text-label-md text-primary">₹50 L</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Actions Grid -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<button class="bg-secondary text-on-secondary rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:bg-opacity-90 transition-colors shadow-sm min-h-[120px] col-span-2 md:col-span-1">
+<span class="material-symbols-outlined text-3xl">medical_information</span>
+<span class="font-label-md text-label-md text-center leading-tight">Check treatment cover</span>
+</button>
+<button class="glass-card rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:bg-surface-container transition-colors min-h-[120px]">
+<span class="material-symbols-outlined text-primary text-3xl">upload_file</span>
+<span class="font-label-md text-label-md text-center leading-tight text-primary">Upload new policy</span>
+</button>
+<button class="glass-card rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:bg-surface-container transition-colors min-h-[120px]">
+<span class="material-symbols-outlined text-error text-3xl">gavel</span>
+<span class="font-label-md text-label-md text-center leading-tight text-on-surface">Fight rejected claim</span>
+</button>
+<button class="glass-card rounded-xl p-4 flex flex-col items-center justify-center gap-3 hover:bg-surface-container transition-colors min-h-[120px]">
+<span class="material-symbols-outlined text-primary text-3xl">auto_awesome</span>
+<span class="font-label-md text-label-md text-center leading-tight text-on-surface">Get recommendations</span>
+</button>
+</section>
+</div>
+<!-- Right Column: Secondary Cards (4 cols) -->
+<div class="md:col-span-4 flex flex-col gap-gutter">
+<!-- 3. Alerts & Reminders -->
+<section class="glass-card rounded-xl p-6 border-l-4 border-l-secondary">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-secondary">notifications_active</span>
+<h3 class="font-label-md text-label-md text-primary uppercase tracking-wider">Alerts &amp; Reminders</h3>
+</div>
+<div class="space-y-4">
+<div class="flex gap-3 items-start">
+<div class="w-2 h-2 rounded-full bg-secondary mt-2 flex-shrink-0"></div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Diabetes coverage unlocks soon</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Pre-existing condition waiting period ends in <strong class="text-secondary">24 days</strong>.</p>
+</div>
+</div>
+<div class="w-full h-px bg-outline-variant bg-opacity-30"></div>
+<div class="flex gap-3 items-start">
+<div class="w-2 h-2 rounded-full bg-error mt-2 flex-shrink-0"></div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Policy Renewal Due</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Star Health policy expires in <strong class="text-error">15 days</strong>. Premium: ₹18,450.</p>
+<button class="mt-2 text-primary font-label-sm text-label-sm underline hover:text-secondary transition-colors">Renew Now</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Family Coverage -->
+<section class="glass-card rounded-xl p-6">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline-sm text-lg font-bold text-primary">Family Coverage</h3>
+<button class="text-primary hover:bg-surface-container p-1 rounded-full transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<div class="space-y-3">
+<!-- Member 1 -->
+<div class="flex items-center justify-between p-2 hover:bg-surface-container-lowest rounded-lg transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center font-label-md">R</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Rahul (Self)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">2 Policies mapped</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary bg-opacity-10 text-secondary font-label-sm text-[10px] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Covered
+                            </span>
+</div>
+<!-- Member 2 -->
+<div class="flex items-center justify-between p-2 hover:bg-surface-container-lowest rounded-lg transition-colors cursor-pointer">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md">P</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Priya (Spouse)</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-[11px]">1 Policy mapped</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-secondary bg-opacity-10 text-secondary font-label-sm text-[10px] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary"></span> Covered
+                            </span>
+</div>
+<!-- Member 3 -->
+<div class="flex items-center justify-between p-2 hover:bg-surface-container-lowest rounded-lg transition-colors cursor-pointer border border-error border-opacity-30 bg-error-container bg-opacity-20">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-variant text-on-surface-variant flex items-center justify-center font-label-md">A</div>
+<div>
+<p class="font-label-md text-label-md text-on-surface">Aarav (Child)</p>
+<p class="font-body-sm text-body-sm text-error text-[11px]">Action needed</p>
+</div>
+</div>
+<span class="px-2 py-0.5 rounded-full bg-error bg-opacity-10 text-error font-label-sm text-[10px] flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-error"></span> Uninsured
+                            </span>
+</div>
+</div>
+</section>
+<!-- Educational Nugget (Mini Card) -->
+<section class="bg-primary text-on-primary rounded-xl p-5 relative overflow-hidden">
+<span class="material-symbols-outlined absolute -bottom-4 -right-4 text-7xl opacity-10">lightbulb</span>
+<p class="font-label-sm text-label-sm opacity-80 mb-1">SETU INSIGHT</p>
+<p class="font-body-sm text-body-sm leading-relaxed">Did you know? Daycare procedures that take less than 24 hours are fully covered under your Star Health plan.</p>
+</section>
+</div>
+</div>
+</main>
+<!-- Persistent AI Chat Widget -->
+
+
+
+</body></html>
