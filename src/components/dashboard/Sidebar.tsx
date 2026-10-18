@@ -11,9 +11,9 @@ import { useToast } from "@/components/ui/use-toast"
 
 const navItems = [
   { href: "/dashboard", icon: "dashboard", label: "Dashboard" },
-  { href: "/policies", icon: "description", label: "My Policies" },
-  { href: "/claims", icon: "assignment_turned_in", label: "Claims" },
   { href: "/chat", icon: "smart_toy", label: "AI Assistant" },
+  { href: "/claims", icon: "assignment_turned_in", label: "Claims" },
+  { href: "/policies", icon: "description", label: "My Policies" },
   { href: "/profile", icon: "person", label: "Profile" }
 ]
 

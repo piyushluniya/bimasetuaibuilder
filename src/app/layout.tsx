@@ -13,7 +13,7 @@ const jakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "BimaSetu — Your AI Insurance Intelligence Portal",
   description:
-    "Discover hidden insurance in your credit cards, parse policies with AI, and get personalized coverage advice in minutes."
+    "Discover the card insurance you already have, parse policies with AI, and get personalized coverage advice in minutes."
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

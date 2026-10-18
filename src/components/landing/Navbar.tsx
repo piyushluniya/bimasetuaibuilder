@@ -10,9 +10,6 @@ export default function Navbar() {
       <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6">
         <Link href="/" className="flex items-center gap-2">
           <span className="font-headline text-xl font-bold text-primary">BimaSetu</span>
-          <span className="hidden border-l border-border pl-2 text-sm text-muted-foreground md:inline-block">
-            बीमासेतु
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

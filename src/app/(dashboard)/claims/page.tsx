@@ -139,7 +139,7 @@ Key Highlights: ${parsed.keyHighlights?.join("; ") || "N/A"}`
         </h1>
         <p className="text-lg text-muted-foreground">
           Don&apos;t let an unfair rejection stand. Describe your denial, and our Setu AI will
-          cross-reference it against the latest IRDAI guidelines to build a strong grievance case.
+          cross-reference it against the latest regulatory guidelines to build a strong grievance case.
         </p>
       </header>
 
@@ -228,7 +228,7 @@ Key Highlights: ${parsed.keyHighlights?.join("; ") || "N/A"}`
             <div>
               <p className="text-sm font-semibold text-accent-foreground">About this tool</p>
               <p className="text-xs text-accent-foreground/80 mt-1 leading-relaxed">
-                Our AI analyzes your claim rejection against IRDAI regulations and your policy
+                Our AI analyzes your claim rejection against insurance regulations and your policy
                 terms. This is informational guidance — consult a licensed advisor for legal
                 decisions.
               </p>
@@ -269,7 +269,7 @@ Key Highlights: ${parsed.keyHighlights?.join("; ") || "N/A"}`
               <div className="flex-1 flex flex-col items-center justify-center text-center py-10">
                 <Icon name="progress_activity" className="animate-spin text-4xl leading-none mb-3 text-secondary" />
                 <p className="text-sm font-medium text-foreground">Analyzing your claim...</p>
-                <p className="text-xs text-muted-foreground mt-1">Checking against IRDAI regulations</p>
+                <p className="text-xs text-muted-foreground mt-1">Checking against insurance regulations</p>
               </div>
             )}
 
@@ -301,7 +301,7 @@ Key Highlights: ${parsed.keyHighlights?.join("; ") || "N/A"}`
                   <div className="pl-6">
                     <p className="text-xs text-secondary uppercase tracking-wider mb-3 flex items-center gap-2 font-semibold">
                       <Icon name="gavel" className="text-base leading-none" />
-                      Setu IRDAI Analysis
+                      Setu Regulatory Analysis
                     </p>
                     <h4 className="font-headline text-lg text-primary mb-2">{verdictInfo?.label}</h4>
                     <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{result.summary}</p>
@@ -323,7 +323,7 @@ Key Highlights: ${parsed.keyHighlights?.join("; ") || "N/A"}`
 
         {result && (
           <>
-            {/* Your Case: reasoning, key arguments, IRDAI references, next steps (8 cols) */}
+            {/* Your Case: reasoning, key arguments, regulatory references, next steps (8 cols) */}
             <div className="lg:col-span-8 bg-card border border-border rounded-xl shadow-sm p-6">
               <div className="mb-6 pb-4 border-b border-border">
                 <h3 className="font-headline text-xl text-primary">Your Case</h3>
@@ -353,12 +353,12 @@ Key Highlights: ${parsed.keyHighlights?.join("; ") || "N/A"}`
                   </div>
                 )}
 
-                {/* IRDAI References */}
+                {/* Regulatory references */}
                 {result.irdaiReferences?.length > 0 && (
                   <div>
                     <p className="text-xs text-primary uppercase tracking-wider mb-3 font-semibold flex items-center gap-2">
                       <Icon name="menu_book" className="text-base leading-none" />
-                      IRDAI References
+                      Regulatory References
                     </p>
                     <div className="space-y-3">
                       {result.irdaiReferences.map((ref, i) => (

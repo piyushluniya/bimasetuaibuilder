@@ -7,11 +7,19 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Badge } from "@/components/ui/badge"
 import { Icon } from "@/components/ui/icon"
 import { QRCodeSVG } from "qrcode.react"
+import { cn } from "@/lib/utils"
 import { useToast } from "@/components/ui/use-toast"
-import type { UserProfile, UserCard, UserPolicy } from "@/lib/firestore-types"
+import { isValidE164 } from "@/lib/phone"
+import {
+  DEFAULT_PREFERENCES,
+  type UserProfile,
+  type UserCard,
+  type UserPolicy,
+  type EmergencyContact,
+  type NotificationPreferences
+} from "@/lib/firestore-types"
 
 const INDIAN_CITIES = [
   "Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai", "Kolkata", "Pune", "Ahmedabad",
@@ -20,9 +28,19 @@ const INDIAN_CITIES = [
   "Faridabad", "Meerut", "Rajkot", "Kalyan", "Vasai-Virar", "Varanasi", "Srinagar", "Other"
 ]
 
-const TWILIO_WHATSAPP_NUMBER = "+14155238886"
-const TWILIO_JOIN_CODE = "join type-combine"
-const WA_LINK = `https://wa.me/14155238886?text=${encodeURIComponent(TWILIO_JOIN_CODE)}`
+const PREFERENCE_ITEMS: Array<{
+  key: keyof NotificationPreferences
+  label: string
+  description: string
+}> = [
+  { key: "policyRenewals", label: "Policy Renewals", description: "Alerts 30 days prior to expiry" },
+  { key: "claimUpdates", label: "Claim Updates", description: "Real-time status changes" }
+]
+
+// Twilio assigns the sandbox number and join phrase — they differ per account,
+// so both come from env rather than being hardcoded. The fallbacks are Twilio's
+// shared sandbox number and a placeholder phrase.
+const FALLBACK_SANDBOX_NUMBER = "+14155238886"
 
 export default function ProfilePage() {
   const router = useRouter()
@@ -37,18 +55,39 @@ export default function ProfilePage() {
   const [name, setName] = useState("")
   const [age, setAge] = useState("")
   const [city, setCity] = useState("")
-  const [savedState, setSavedState] = useState({ name: "", age: "", city: "" })
+  const [phone, setPhone] = useState("")
+  const [savedState, setSavedState] = useState({ name: "", age: "", city: "", phone: "" })
   const [editingInfo, setEditingInfo] = useState(false)
+
+  // Preferences & emergency contacts
+  const [preferences, setPreferences] = useState<NotificationPreferences>(DEFAULT_PREFERENCES)
+  const [emergencyContacts, setEmergencyContacts] = useState<EmergencyContact[]>([])
+  const [contactDraft, setContactDraft] = useState<EmergencyContact>({ name: "", relation: "", phone: "+91" })
+  const [addingContact, setAddingContact] = useState(false)
+  const [savingContacts, setSavingContacts] = useState(false)
 
   // WhatsApp
   const [waNumber, setWaNumber] = useState("+91")
   const [waSaved, setWaSaved] = useState("")
+  const [waSameAsPrimary, setWaSameAsPrimary] = useState(false)
+  const [sandbox, setSandbox] = useState({ number: FALLBACK_SANDBOX_NUMBER, joinCode: "" })
+
+  const waLink = sandbox.joinCode
+    ? `https://wa.me/${sandbox.number.replace(/\D/g, "")}?text=${encodeURIComponent(sandbox.joinCode)}`
+    : `https://wa.me/${sandbox.number.replace(/\D/g, "")}`
   const [savingWa, setSavingWa] = useState(false)
   const [showWaInstructions, setShowWaInstructions] = useState(false)
   const [unlinking, setUnlinking] = useState(false)
   const [deletingAccount, setDeletingAccount] = useState(false)
 
   useEffect(() => { loadProfile() }, [])
+
+  useEffect(() => {
+    fetch("/api/whatsapp/config")
+      .then((r) => r.json())
+      .then((c) => setSandbox({ number: c.number || FALLBACK_SANDBOX_NUMBER, joinCode: c.joinCode || "" }))
+      .catch(() => {})
+  }, [])
 
 
 
@@ -69,13 +108,17 @@ export default function ProfilePage() {
         const n = p.name || ""
         const a = p.age?.toString() || ""
         const c = p.city || ""
+        const ph = p.phone || ""
         const wn = p.whatsappNumber || "+91"
 
-        setName(n); setAge(a); setCity(c)
-        setSavedState({ name: n, age: a, city: c })
+        setName(n); setAge(a); setCity(c); setPhone(ph)
+        setSavedState({ name: n, age: a, city: c, phone: ph })
+        setPreferences({ ...DEFAULT_PREFERENCES, ...(p.preferences || {}) })
+        setEmergencyContacts(p.emergencyContacts || [])
         setProfileId(p.id)
         setWaNumber(wn)
         setWaSaved(wn)
+        setWaSameAsPrimary(!!ph && wn === ph)
         setShowWaInstructions(wn !== "+91" && wn.length > 4)
       }
 
@@ -92,7 +135,8 @@ export default function ProfilePage() {
   }
 
   const hasInfoChanges =
-    name !== savedState.name || age !== savedState.age || city !== savedState.city
+    name !== savedState.name || age !== savedState.age || city !== savedState.city ||
+    phone !== savedState.phone
 
   async function handleSaveInfo() {
     if (!name.trim()) return
@@ -101,7 +145,8 @@ export default function ProfilePage() {
       const payload = {
         name: name.trim(),
         age: parseInt(age) || undefined,
-        city: city || undefined
+        city: city || undefined,
+        phone: phone.trim() || undefined
       }
       if (profileId) {
         await fetch("/api/profile", {
@@ -118,7 +163,7 @@ export default function ProfilePage() {
         const { data } = await res.json()
         if (data) setProfileId(data.id)
       }
-      setSavedState({ name: name.trim(), age, city })
+      setSavedState({ name: name.trim(), age, city, phone: phone.trim() })
       toast({ title: "Profile updated" })
     } catch {
       toast({ title: "Failed to update profile", variant: "destructive" })
@@ -131,10 +176,72 @@ export default function ProfilePage() {
     setName(savedState.name)
     setAge(savedState.age)
     setCity(savedState.city)
+    setPhone(savedState.phone)
     setEditingInfo(false)
   }
 
-  const waNumberValid = waNumber.length >= 10 && waNumber !== "+91"
+  // Both preferences and emergency contacts write straight through on change —
+  // there's no draft/save cycle for them, unlike the personal-details block.
+  async function persistProfileFields(fields: Partial<UserProfile>) {
+    if (!profileId) {
+      toast({ title: "Add your name first", description: "Your profile needs to exist before this can be saved." })
+      return false
+    }
+    const res = await fetch("/api/profile", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id: profileId, ...fields })
+    })
+    return res.ok
+  }
+
+  async function togglePreference(key: keyof NotificationPreferences) {
+    const next = { ...preferences, [key]: !preferences[key] }
+    setPreferences(next)
+    const ok = await persistProfileFields({ preferences: next })
+    if (!ok) {
+      setPreferences(preferences)
+      toast({ title: "Couldn't save preference", variant: "destructive" })
+    }
+  }
+
+  async function saveContacts(next: EmergencyContact[]) {
+    setSavingContacts(true)
+    const previous = emergencyContacts
+    setEmergencyContacts(next)
+    const ok = await persistProfileFields({ emergencyContacts: next })
+    setSavingContacts(false)
+    if (!ok) {
+      setEmergencyContacts(previous)
+      toast({ title: "Couldn't save contact", variant: "destructive" })
+      return false
+    }
+    return true
+  }
+
+  // Emergency contacts are messaged over WhatsApp in an emergency, so they need
+  // a country code for exactly the same reason the user's own number does.
+  const contactDraftValid =
+    contactDraft.name.trim().length > 0 && isValidE164(contactDraft.phone)
+
+  async function handleAddContact() {
+    if (!contactDraftValid) return
+    const saved = await saveContacts([
+      ...emergencyContacts,
+      {
+        name: contactDraft.name.trim(),
+        relation: contactDraft.relation.trim(),
+        phone: contactDraft.phone.trim()
+      }
+    ])
+    if (saved) {
+      setContactDraft({ name: "", relation: "", phone: "+91" })
+      setAddingContact(false)
+      toast({ title: "Emergency contact added" })
+    }
+  }
+
+  const waNumberValid = isValidE164(waNumber)
 
   async function handleSaveWhatsApp() {
     if (!waNumberValid || !profileId) return
@@ -270,6 +377,13 @@ export default function ProfilePage() {
                       {email}
                     </p>
                   </div>
+                  <div>
+                    <Label className="text-xs text-muted-foreground uppercase tracking-wide">Primary Mobile</Label>
+                    <p className="text-sm text-foreground mt-1 flex items-center gap-1.5">
+                      <Icon name="call" className="text-base leading-none text-muted-foreground shrink-0" />
+                      {phone || <span className="text-muted-foreground">Not set</span>}
+                    </p>
+                  </div>
                 </div>
               </>
             ) : (
@@ -317,6 +431,24 @@ export default function ProfilePage() {
                       ))}
                     </select>
                   </div>
+                </div>
+                <div className="space-y-1.5">
+                  <Label>Primary Mobile</Label>
+                  <Input
+                    type="tel"
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    placeholder="+91 98765 43210"
+                    aria-invalid={phone.length > 0 && !isValidE164(phone)}
+                  />
+                  <p
+                    className={cn(
+                      "text-xs",
+                      phone.length > 0 && !isValidE164(phone) ? "text-destructive" : "text-muted-foreground"
+                    )}
+                  >
+                    Include your country code, e.g. +91.
+                  </p>
                 </div>
                 <div>
                   <Label className="text-xs text-muted-foreground uppercase tracking-wide">Email ID</Label>
@@ -390,15 +522,12 @@ export default function ProfilePage() {
                 <Label>WhatsApp Number</Label>
                 <div className="flex gap-2">
                   <Input
+                    type="tel"
                     value={waNumber}
-                    onChange={(e) => {
-                      let v = e.target.value
-                      if (!v.startsWith("+91")) v = "+91" + v.replace(/^\+91/, "")
-                      setWaNumber(v)
-                    }}
+                    onChange={(e) => setWaNumber(e.target.value)}
                     placeholder="+91 98765 43210"
                     className="flex-1"
-                    maxLength={13}
+                    disabled={waSameAsPrimary}
                   />
                   <Button
                     onClick={handleSaveWhatsApp}
@@ -408,6 +537,26 @@ export default function ProfilePage() {
                     {savingWa ? <Icon name="progress_activity" className="text-base leading-none animate-spin" /> : "Save"}
                   </Button>
                 </div>
+                <label className={cn("flex items-center gap-2 pt-1", phone ? "cursor-pointer" : "opacity-60")}>
+                  <input
+                    type="checkbox"
+                    checked={waSameAsPrimary}
+                    disabled={!phone}
+                    onChange={(e) => {
+                      setWaSameAsPrimary(e.target.checked)
+                      if (e.target.checked) setWaNumber(phone)
+                    }}
+                    className="h-4 w-4 shrink-0 accent-[hsl(var(--secondary))]"
+                  />
+                  <span className="text-sm text-foreground">
+                    Same as my primary mobile
+                    {!phone && (
+                      <span className="block text-xs text-muted-foreground">
+                        Add a primary mobile above to use this.
+                      </span>
+                    )}
+                  </span>
+                </label>
               </div>
             )}
 
@@ -427,7 +576,7 @@ export default function ProfilePage() {
                   <div className="flex flex-col items-center gap-1.5 shrink-0">
                     <div className="bg-white rounded-xl p-2.5 border border-border shadow-sm">
                       <QRCodeSVG
-                        value={WA_LINK}
+                        value={waLink}
                         size={110}
                         bgColor="#ffffff"
                         fgColor="#111827"
@@ -446,16 +595,22 @@ export default function ProfilePage() {
                     <div className="bg-card rounded-lg border border-border px-3 py-2 space-y-1.5">
                       <div>
                         <p className="text-xs text-muted-foreground">Send to</p>
-                        <p className="font-mono text-sm font-semibold text-foreground">{TWILIO_WHATSAPP_NUMBER}</p>
+                        <p className="font-mono text-sm font-semibold text-foreground">{sandbox.number}</p>
                       </div>
                       <div className="border-t border-border pt-1.5">
                         <p className="text-xs text-muted-foreground">Message</p>
-                        <p className="font-mono text-sm font-semibold text-foreground">{TWILIO_JOIN_CODE}</p>
+                        {sandbox.joinCode ? (
+                          <p className="font-mono text-sm font-semibold text-foreground">{sandbox.joinCode}</p>
+                        ) : (
+                          <p className="text-sm text-destructive">
+                            Join phrase not configured yet — find it in your Twilio sandbox and set it on the server.
+                          </p>
+                        )}
                       </div>
                     </div>
                     <Button
                       className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90 gap-2 h-9 text-sm"
-                      onClick={() => window.open(WA_LINK, "_blank")}
+                      onClick={() => window.open(waLink, "_blank")}
                     >
                       <Icon name="open_in_new" className="text-sm leading-none" />
                       Open WhatsApp
@@ -493,30 +648,149 @@ export default function ProfilePage() {
             </p>
           </div>
 
+          {/* Preferences */}
+          <div className="bg-card rounded-xl border border-border shadow-sm p-6">
+            <h3 className="font-headline text-lg font-bold text-primary flex items-center gap-2 mb-4">
+              <Icon name="notifications" className="text-secondary text-xl leading-none" />
+              Preferences
+            </h3>
+            <div className="space-y-4">
+              {PREFERENCE_ITEMS.map((item) => (
+                <div key={item.key} className="flex items-center justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-foreground">{item.label}</p>
+                    <p className="text-xs text-muted-foreground">{item.description}</p>
+                  </div>
+                  <button
+                    role="switch"
+                    aria-checked={preferences[item.key]}
+                    aria-label={item.label}
+                    onClick={() => togglePreference(item.key)}
+                    className={cn(
+                      "relative w-11 h-6 rounded-full shrink-0 transition-colors",
+                      preferences[item.key] ? "bg-secondary" : "bg-muted-foreground/30"
+                    )}
+                  >
+                    <span
+                      className={cn(
+                        "absolute top-0.5 left-0.5 w-5 h-5 rounded-full bg-background shadow transition-transform",
+                        preferences[item.key] && "translate-x-5"
+                      )}
+                    />
+                  </button>
+                </div>
+              ))}
+            </div>
+            <p className="text-xs text-muted-foreground mt-4">
+              These control the WhatsApp alerts BimaSetu sends you. Saved now, applied once WhatsApp
+              notifications go live.
+            </p>
+          </div>
+
+          {/* Emergency Contacts */}
+          <div className="bg-card rounded-xl border border-destructive/30 shadow-sm p-6">
+            <h3 className="font-headline text-lg font-bold text-destructive flex items-center gap-2 mb-2">
+              <Icon name="contact_emergency" className="text-xl leading-none" />
+              Emergency Contacts
+            </h3>
+            <p className="text-sm text-muted-foreground mb-4">
+              These contacts are notified on WhatsApp — with your location — if you trigger Emergency Mode.
+            </p>
+
+            {emergencyContacts.length > 0 && (
+              <ul className="space-y-2 mb-4">
+                {emergencyContacts.map((c, i) => (
+                  <li
+                    key={`${c.phone}-${i}`}
+                    className="flex items-center gap-3 p-3 rounded-lg bg-destructive/5 border border-destructive/20"
+                  >
+                    <div className="w-9 h-9 rounded-full bg-destructive/10 text-destructive flex items-center justify-center shrink-0">
+                      <Icon name="person" className="text-lg leading-none" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-semibold text-foreground truncate">
+                        {c.name}
+                        {c.relation ? <span className="text-muted-foreground font-normal"> ({c.relation})</span> : null}
+                      </p>
+                      <p className="text-xs text-muted-foreground">{c.phone}</p>
+                    </div>
+                    <button
+                      onClick={() => saveContacts(emergencyContacts.filter((_, idx) => idx !== i))}
+                      disabled={savingContacts}
+                      aria-label={`Remove ${c.name}`}
+                      className="p-2 rounded text-muted-foreground hover:text-destructive transition-colors shrink-0"
+                    >
+                      <Icon name="delete" className="text-lg leading-none" />
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {addingContact ? (
+              <div className="space-y-3 p-4 rounded-lg border border-border bg-muted/40">
+                <div className="grid sm:grid-cols-2 gap-3">
+                  <div className="space-y-1.5">
+                    <Label>Name</Label>
+                    <Input
+                      value={contactDraft.name}
+                      onChange={(e) => setContactDraft({ ...contactDraft, name: e.target.value })}
+                      placeholder="Ravi Sharma"
+                    />
+                  </div>
+                  <div className="space-y-1.5">
+                    <Label>Relationship</Label>
+                    <Input
+                      value={contactDraft.relation}
+                      onChange={(e) => setContactDraft({ ...contactDraft, relation: e.target.value })}
+                      placeholder="Brother"
+                    />
+                  </div>
+                </div>
+                <div className="space-y-1.5">
+                  <Label>WhatsApp Number</Label>
+                  <Input
+                    type="tel"
+                    value={contactDraft.phone}
+                    onChange={(e) => setContactDraft({ ...contactDraft, phone: e.target.value })}
+                    placeholder="+91 98765 12345"
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <Button onClick={handleAddContact} disabled={!contactDraftValid || savingContacts}>
+                    {savingContacts ? (
+                      <>
+                        <Icon name="progress_activity" className="text-base leading-none animate-spin mr-2" />
+                        Saving...
+                      </>
+                    ) : "Add Contact"}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      setAddingContact(false)
+                      setContactDraft({ name: "", relation: "", phone: "+91" })
+                    }}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </div>
+            ) : (
+              <Button variant="outline" className="gap-2" onClick={() => setAddingContact(true)}>
+                <Icon name="add" className="text-lg leading-none" />
+                {emergencyContacts.length === 0 ? "Add Emergency Contact" : "Add Another Contact"}
+              </Button>
+            )}
+          </div>
+
           {/* Account */}
           <div className="bg-card rounded-xl border border-border shadow-sm p-6">
             <h3 className="font-headline text-lg font-bold text-primary flex items-center gap-2 mb-4">
               <Icon name="shield_person" className="text-secondary text-xl leading-none" />
               Account
             </h3>
-            <div className="space-y-1">
-              <div className="flex items-center justify-between py-2 gap-3">
-                <div>
-                  <p className="text-sm font-semibold text-foreground">Email</p>
-                  <p className="text-sm text-muted-foreground break-all">{email}</p>
-                </div>
-                <Badge className="bg-secondary/10 text-secondary border-transparent shrink-0 hover:bg-secondary/10">Verified</Badge>
-              </div>
-              <div className="flex items-center justify-between py-2 border-t border-border gap-3">
-                <div>
-                  <p className="text-sm font-semibold text-foreground">Account type</p>
-                  <p className="text-sm text-muted-foreground">Free plan</p>
-                </div>
-                <Badge variant="secondary" className="shrink-0">Free</Badge>
-              </div>
-            </div>
-
-            <div className="mt-4 pt-4 border-t border-border space-y-3">
+            <div className="space-y-3">
               <Button
                 variant="outline"
                 className="w-full gap-2"

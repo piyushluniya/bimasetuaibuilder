@@ -10,26 +10,26 @@ const stats = [
     icon: "groups",
     iconColor: "text-secondary",
     value: "800M+",
-    label: "Indians without adequate health insurance coverage."
+    label: "People living without adequate health insurance coverage."
   },
   {
     icon: "money_off",
     iconColor: "text-destructive",
-    value: "₹26,000Cr",
-    label: "Value of insurance claims rejected in FY24 alone."
+    value: "Billions",
+    label: "Lost every year to insurance claims that get rejected."
   },
   {
     icon: "credit_card",
     iconColor: "text-primary",
     value: "100M+",
-    label: "Debit/Credit cards with hidden, unutilized insurance."
+    label: "Debit/Credit cards with unused insurance built in."
   }
 ]
 
 const footerLinks = [
-  ["IRDAI Disclaimers", "Bank Partners"],
+  ["Regulatory Disclaimers", "Bank Partners"],
   ["Emergency Contacts", "Privacy Policy"],
-  ["Language: English/हिंदी"]
+  ["Language: English"]
 ]
 
 export default function LandingPage() {

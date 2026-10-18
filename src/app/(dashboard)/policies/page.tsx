@@ -11,6 +11,7 @@ import PolicyCoverageCard from "@/components/dashboard/PolicyCoverageCard"
 import HiddenCoverageCard from "@/components/dashboard/HiddenCoverageCard"
 import { Icon } from "@/components/ui/icon"
 import { useToast } from "@/components/ui/use-toast"
+import { validatePolicyFile, uploadPolicyPdf } from "@/lib/policy-upload"
 
 const POPULAR_CARDS = [
   "HDFC Regalia", "HDFC Infinia", "SBI Elite", "ICICI Sapphiro", "Axis Magnus", "Amex Platinum"
@@ -83,12 +84,9 @@ export default function PoliciesPage() {
   }
 
   async function handleFileUpload(file: File) {
-    if (!file || file.type !== "application/pdf") {
-      toast({ title: "Please upload a PDF file", variant: "destructive" })
-      return
-    }
-    if (file.size > 10 * 1024 * 1024) {
-      toast({ title: "File too large", description: "Max 10MB allowed", variant: "destructive" })
+    const error = file ? validatePolicyFile(file) : "Please upload a PDF file"
+    if (error) {
+      toast({ title: error, variant: "destructive" })
       return
     }
 
@@ -96,13 +94,8 @@ export default function PoliciesPage() {
     setUploadProgress(20)
 
     try {
-      const formData = new FormData()
-      formData.append("file", file)
-
       setUploadProgress(50)
-      const res = await fetch("/api/policies", { method: "POST", body: formData })
-      if (!res.ok) throw new Error("Upload failed")
-      const { data: policy } = await res.json()
+      const policy = await uploadPolicyPdf(file)
 
       setUploadProgress(100)
       setPollingId(policy.id)
@@ -350,7 +343,7 @@ export default function PoliciesPage() {
             <div className="bg-primary text-primary-foreground rounded-xl p-6 shadow-md relative overflow-hidden">
               <Icon name="account_balance" className="absolute -right-4 -top-4 text-[100px] leading-none opacity-10" />
               <div className="relative z-10">
-                <p className="text-xs opacity-80 mb-1">Total Hidden Coverage</p>
+                <p className="text-xs opacity-80 mb-1">Total Card Insurance</p>
                 <p className="font-headline font-bold text-3xl mb-2">₹{totalHiddenValue.toLocaleString("en-IN")}L</p>
                 <p className="text-sm opacity-80">Unlocked through your credit cards, tracked by BimaSetu.</p>
               </div>
@@ -360,7 +353,7 @@ export default function PoliciesPage() {
           {/* Card search */}
           <Card className="border-border shadow-sm">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base font-headline">Discover Hidden Coverage</CardTitle>
+              <CardTitle className="text-base font-headline">Discover Card Insurance</CardTitle>
               <CardDescription>Enter a credit card name to reveal its insurance benefits</CardDescription>
             </CardHeader>
             <CardContent>
@@ -445,7 +438,7 @@ export default function PoliciesPage() {
                         </button>
                       </div>
                       <div className="mt-3 flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground">Hidden value</span>
+                        <span className="text-xs text-muted-foreground">Card insurance</span>
                         <Badge className="bg-accent text-accent-foreground border-transparent">
                           ₹{(card.hiddenValue || 0).toLocaleString("en-IN")}L
                         </Badge>
@@ -473,7 +466,7 @@ export default function PoliciesPage() {
                   </div>
                   <h3 className="font-headline font-semibold text-primary mb-1 text-sm">No cards linked</h3>
                   <p className="text-xs text-muted-foreground">
-                    Discover hidden insurance benefits on your credit cards using the search above.
+                    Discover card insurance benefits on your credit cards using the search above.
                   </p>
                 </CardContent>
               </Card>

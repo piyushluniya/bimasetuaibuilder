@@ -6,18 +6,14 @@ import { Input } from "@/components/ui/input"
 import { Icon } from "@/components/ui/icon"
 import { cn } from "@/lib/utils"
 
-interface Message {
-  id: string
-  role: "user" | "assistant"
-  content: string
-  confidence?: "high" | "medium" | "low"
-  disclaimer?: string
-  timestamp: Date
-}
+import type { ChatMessage } from "@/lib/firestore-types"
 
 interface Props {
   policyContext: string
   cardContext: string
+  initialMessages?: ChatMessage[]
+  // Called after each completed exchange so the parent can persist the thread.
+  onMessagesChange?: (messages: ChatMessage[]) => void
 }
 
 const SUGGESTED_QUESTIONS = [
@@ -29,19 +25,27 @@ const SUGGESTED_QUESTIONS = [
   "What is the waiting period for heart surgery?"
 ]
 
-export default function ChatInterface({ policyContext, cardContext }: Props) {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: "welcome",
-      role: "assistant",
-      content: `Namaste! Main BimaSetu AI hoon. I can answer questions about your insurance coverage.
+export default function ChatInterface({
+  policyContext,
+  cardContext,
+  initialMessages,
+  onMessagesChange
+}: Props) {
+  const [messages, setMessages] = useState<ChatMessage[]>(() =>
+    initialMessages?.length
+      ? initialMessages
+      : [
+          {
+            role: "assistant",
+            content: `Hello! I'm BimaSetu AI. I can answer questions about your insurance coverage.
 
 ${policyContext ? "I can see your uploaded policy. " : "You haven't uploaded a policy yet — upload one for personalized answers. "}${cardContext ? "Your credit card benefits are also available." : ""}
 
 What would you like to know about your coverage?`,
-      timestamp: new Date()
-    }
-  ])
+            timestamp: new Date().toISOString()
+          }
+        ]
+  )
   const [input, setInput] = useState("")
   const [loading, setLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
@@ -54,14 +58,14 @@ What would you like to know about your coverage?`,
     const text = question || input.trim()
     if (!text || loading) return
 
-    const userMessage: Message = {
-      id: Date.now().toString(),
+    const userMessage: ChatMessage = {
       role: "user",
       content: text,
-      timestamp: new Date()
+      timestamp: new Date().toISOString()
     }
 
-    setMessages((prev) => [...prev, userMessage])
+    const withUser = [...messages, userMessage]
+    setMessages(withUser)
     setInput("")
     setLoading(true)
 
@@ -85,25 +89,26 @@ What would you like to know about your coverage?`,
       if (!response.ok) throw new Error("Chat failed")
       const data = await response.json()
 
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
+      const assistantMessage: ChatMessage = {
         role: "assistant",
         content: data.answer,
-        confidence: data.confidence,
-        disclaimer: data.disclaimer,
-        timestamp: new Date()
+        ...(data.confidence ? { confidence: data.confidence } : {}),
+        ...(data.disclaimer ? { disclaimer: data.disclaimer } : {}),
+        timestamp: new Date().toISOString()
       }
 
-      setMessages((prev) => [...prev, assistantMessage])
+      const next = [...withUser, assistantMessage]
+      setMessages(next)
+      onMessagesChange?.(next)
     } catch {
-      setMessages((prev) => [
-        ...prev,
+      // The failed exchange isn't persisted — only the thread as it stood before.
+      setMessages([
+        ...withUser,
         {
-          id: (Date.now() + 1).toString(),
           role: "assistant",
           content:
             "I'm sorry, I couldn't process your question. Please try again in a moment.",
-          timestamp: new Date()
+          timestamp: new Date().toISOString()
         }
       ])
     } finally {
@@ -121,8 +126,8 @@ What would you like to know about your coverage?`,
     <div className="flex flex-col h-full">
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
-        {messages.map((message) => (
-          <div key={message.id} className={cn("flex", message.role === "user" ? "justify-end" : "justify-start")}>
+        {messages.map((message, idx) => (
+          <div key={idx} className={cn("flex", message.role === "user" ? "justify-end" : "justify-start")}>
             <div
               className={cn(
                 "max-w-[85%] space-y-1 flex flex-col",
@@ -156,7 +161,7 @@ What would you like to know about your coverage?`,
               )}
 
               <p className="text-xs text-muted-foreground px-1">
-                {message.timestamp.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
+                {new Date(message.timestamp).toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
               </p>
             </div>
           </div>

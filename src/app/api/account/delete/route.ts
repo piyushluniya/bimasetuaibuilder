@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { adminDb } from "@/lib/firebase-admin"
 
-const COLLECTIONS = ["userProfiles", "userPolicies", "userCards", "chatMessages"]
+const COLLECTIONS = ["userProfiles", "userPolicies", "userCards", "chatConversations"]
 
 async function deleteAllByUserId(collection: string, userId: string): Promise<number> {
   const snap = await adminDb().collection(collection).where("userId", "==", userId).get()

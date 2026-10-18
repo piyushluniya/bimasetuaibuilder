@@ -48,14 +48,11 @@ export async function POST(req: NextRequest) {
 
     await ref.update({ status: "parsing" })
 
-    // Fire-and-forget: /api/policy-parser runs Document AI + Vertex AI + the
-    // Firestore write-back, then the client polls /api/policies/[id] for status.
-    fetch(new URL("/api/policy-parser", req.url), {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ gcsKey, userId, policyId: ref.id })
-    }).catch(console.error)
-
+    // Parsing is NOT kicked off here. Cloud Run throttles CPU to ~zero once a
+    // response is returned, so a fire-and-forget fetch never actually runs and
+    // the policy sits at "parsing" forever. The browser calls
+    // /api/policy-parser itself after this resolves, which keeps a real
+    // request open for the duration of the work.
     const created = await ref.get()
     return NextResponse.json({ data: { id: created.id, ...created.data() } })
   } catch (err) {

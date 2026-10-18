@@ -7,8 +7,8 @@ import { Icon } from "@/components/ui/icon"
 
 const navItems = [
   { href: "/dashboard", icon: "dashboard", label: "Home" },
-  { href: "/policies", icon: "description", label: "Policies" },
   { href: "/claims", icon: "assignment_turned_in", label: "Claims" },
+  { href: "/policies", icon: "description", label: "Policies" },
   { href: "/profile", icon: "person", label: "Profile" }
 ]
 

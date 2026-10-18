@@ -3,6 +3,7 @@ import { adminDb } from "@/lib/firebase-admin"
 import crypto from "crypto"
 import { findNearestHospitals, findHospitalsByCity } from "@/data/hospitals"
 import { callGemini as callGeminiVertex } from "@/lib/gemini-vertex"
+import { normalizePhone } from "@/lib/phone"
 
 const TWILIO_AUTH_TOKEN = process.env.TWILIO_AUTH_TOKEN!
 
@@ -234,7 +235,7 @@ export async function POST(req: NextRequest) {
 
   console.log(`[whatsapp/webhook] From: ${from} | Body: "${body.substring(0, 80)}" | Location: ${isLocationShare ? `${incomingLat},${incomingLng}` : "none"}`)
 
-  const phone = from.replace(/^whatsapp:/, "")
+  const phone = normalizePhone(from)
   if (!phone) return twimlEmpty()
 
   // ------------------------------------------------------------------
@@ -275,7 +276,7 @@ export async function POST(req: NextRequest) {
         `• Find nearest cashless hospitals\n` +
         `• Get help with claim rejections\n` +
         `• Send SOS in an emergency\n\n` +
-        `I speak Hindi & Hinglish too — बस पूछो! 🙏`
+        `Just ask in whichever language you're comfortable with.`
       )
     } else {
       return twiml(
@@ -387,9 +388,9 @@ export async function POST(req: NextRequest) {
 
   const systemContext = policyContext
     ? `The user has this insurance policy:\n${policyContext}`
-    : `The user has not uploaded a policy. Provide general Indian insurance guidance.`
+    : `The user has not uploaded a policy. Provide general insurance guidance.`
 
-  const prompt = `You are BimaSetu AI — a friendly Indian insurance advisor on WhatsApp.
+  const prompt = `You are BimaSetu AI — a friendly insurance advisor on WhatsApp.
 Keep your reply SHORT (max 5-6 lines). Plain text only — no asterisks, no markdown, no bullet symbols.
 Use simple line breaks. Be warm and accurate.
 
@@ -398,7 +399,7 @@ ${systemContext}
 User's name: ${userName}
 Message: ${body}
 
-Reply in the same language as the user (Hindi/English/Hinglish). Keep it brief.`
+Reply in the same language the user wrote in. Keep it brief.`
 
   try {
     const answer = await callGemini(prompt)

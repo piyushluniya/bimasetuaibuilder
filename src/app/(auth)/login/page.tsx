@@ -56,7 +56,7 @@ export default function LoginPage() {
             <Icon name="shield_locked" filled className="text-white text-4xl" />
           </div>
           <h1 className="font-headline text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-            Insurance Intelligence for Every Indian
+            Insurance Intelligence for Everyone
           </h1>
           <p className="text-lg text-white/80 leading-relaxed">
             Navigate the complexities of health and life policies with clarity. BimaSetu bridges
@@ -105,7 +105,6 @@ export default function LoginPage() {
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="email" className="flex justify-between items-baseline text-xs font-bold text-muted-foreground">
                 <span>Email Address</span>
-                <span className="font-normal text-muted-foreground/70">ईमेल</span>
               </Label>
               <div className="relative">
                 <Icon
@@ -128,7 +127,6 @@ export default function LoginPage() {
             <div className="flex flex-col gap-1.5">
               <Label htmlFor="password" className="flex justify-between items-baseline text-xs font-bold text-muted-foreground">
                 <span>Password</span>
-                <span className="font-normal text-muted-foreground/70">पासवर्ड</span>
               </Label>
               <div className="relative">
                 <Icon

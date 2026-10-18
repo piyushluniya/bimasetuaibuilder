@@ -1,0 +1,41 @@
+# Builds the Next.js image and pushes it to Artifact Registry.
+#
+# The NEXT_PUBLIC_* values must be passed as build args, not runtime env vars:
+# `next build` inlines them into the client bundle. Everything else (project id,
+# bucket, Document AI, Twilio credentials) is read server-side at runtime and is
+# set on the Cloud Run service instead — never baked into the image.
+#
+# Submit with:
+#   gcloud builds submit --config cloudbuild.yaml \
+#     --substitutions=_FIREBASE_API_KEY=...,_FIREBASE_AUTH_DOMAIN=...,_FIREBASE_PROJECT_ID=...
+substitutions:
+  _IMAGE: us-central1-docker.pkg.dev/bimasetu/bimasetu/app
+  _FIREBASE_API_KEY: ""
+  _FIREBASE_AUTH_DOMAIN: ""
+  _FIREBASE_PROJECT_ID: ""
+  _FIREBASE_APP_ID: ""
+
+# Default machine type on purpose — larger types are quota-restricted on
+# free-trial billing accounts and fail the build outright.
+options:
+  logging: CLOUD_LOGGING_ONLY
+
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - --build-arg=NEXT_PUBLIC_FIREBASE_API_KEY=${_FIREBASE_API_KEY}
+      - --build-arg=NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=${_FIREBASE_AUTH_DOMAIN}
+      - --build-arg=NEXT_PUBLIC_FIREBASE_PROJECT_ID=${_FIREBASE_PROJECT_ID}
+      - --build-arg=NEXT_PUBLIC_FIREBASE_APP_ID=${_FIREBASE_APP_ID}
+      - -t
+      - ${_IMAGE}:${BUILD_ID}
+      - -t
+      - ${_IMAGE}:latest
+      - .
+
+images:
+  - ${_IMAGE}:${BUILD_ID}
+  - ${_IMAGE}:latest
+
+timeout: 1800s

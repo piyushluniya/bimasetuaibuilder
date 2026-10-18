@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     const knownData = findCard(cardName)
 
     const prompt = knownData
-      ? `You are an expert Indian insurance analyst. Based on the following known benefits data for the ${knownData.cardName}, generate a detailed Hidden Coverage Card JSON.
+      ? `You are an expert insurance analyst. Based on the following known benefits data for the ${knownData.cardName}, generate a detailed Hidden Coverage Card JSON.
 
 Known data:
 - Air Accident Cover: ₹${knownData.airAccident} lakhs
@@ -38,9 +38,9 @@ Generate a JSON response with this exact structure:
   "usageTips": ["<tip 1>", "<tip 2>", "<tip 3>"]
 }
 Return ONLY the JSON, no markdown, no explanation.`
-      : `You are an expert Indian insurance analyst. The user is asking about the "${cardName}" credit card.
+      : `You are an expert insurance analyst. The user is asking about the "${cardName}" credit card.
 
-Based on your knowledge of Indian credit cards and their typical insurance benefits, generate a Hidden Coverage Card JSON for this card. If you don't know the specific card, generate reasonable estimates based on similar cards in the same tier.
+Based on your knowledge of this credit card and the typical insurance benefits of cards in its tier, generate a Hidden Coverage Card JSON for this card. If you don't know the specific card, generate reasonable estimates based on similar cards in the same tier.
 
 Generate a JSON response with this exact structure:
 {

@@ -55,7 +55,7 @@ export default function HiddenCoverageCard({ data }: Props) {
               <p className="text-xs text-gray-400 mt-1">{data.cardType}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-gray-400">Total Hidden Value</p>
+              <p className="text-xs text-gray-400">Total Card Insurance</p>
               <p className="text-2xl font-bold text-yellow-400">
                 ₹{data.totalHiddenValue.toLocaleString("en-IN")}L
               </p>

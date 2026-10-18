@@ -31,7 +31,7 @@ const features = [
     icon: "gavel",
     title: "Claim Fighter",
     description:
-      "AI-powered grievance letters drafted in seconds for rejected claims, leveraging IRDAI guidelines to fight for your rights automatically.",
+      "AI-powered grievance letters drafted in seconds for rejected claims, leveraging regulatory guidelines to fight for your rights automatically.",
     span: "md:col-span-7",
     iconBg: "bg-destructive/10",
     iconColor: "text-destructive",

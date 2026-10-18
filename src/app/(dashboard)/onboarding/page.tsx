@@ -245,7 +245,7 @@ export default function OnboardingPage() {
                 <Icon name="auto_awesome" className="text-secondary text-xl" />
                 <CardTitle className="font-headline">All set, {name}!</CardTitle>
               </div>
-              <CardDescription>We&apos;re ready to discover your hidden insurance coverage</CardDescription>
+              <CardDescription>We&apos;re ready to discover your card insurance coverage</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="bg-muted rounded-lg p-4 mb-6 space-y-2 text-sm">

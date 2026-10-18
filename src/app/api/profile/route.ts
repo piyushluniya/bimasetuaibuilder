@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { adminDb, requireUserId } from "@/lib/firebase-admin"
 import type { UserProfile } from "@/lib/firestore-types"
+import { normalizePhone } from "@/lib/phone"
 
 const COLLECTION = "userProfiles"
 
@@ -27,6 +28,8 @@ export async function POST(req: NextRequest) {
       name: body.name,
       age: body.age ?? null,
       city: body.city ?? null,
+      phone: normalizePhone(body.phone) || null,
+      whatsappNumber: normalizePhone(body.whatsappNumber) || null,
       familyMembers: body.familyMembers ?? null,
       createdAt: body.createdAt || new Date().toISOString()
     }
@@ -51,6 +54,14 @@ export async function PATCH(req: NextRequest) {
       return NextResponse.json({ error: "Not found" }, { status: 404 })
     }
 
+    // Ownership is not client-writable — otherwise a caller could reassign
+    // their profile to another user's id.
+    delete updates.userId
+
+    // Canonicalise numbers on the way in so the WhatsApp webhook's exact-match
+    // lookup can ever succeed.
+    if ("phone" in updates) updates.phone = normalizePhone(updates.phone) || null
+    if ("whatsappNumber" in updates) updates.whatsappNumber = normalizePhone(updates.whatsappNumber) || null
     await ref.update({ ...updates, updatedAt: new Date().toISOString() })
     const updated = await ref.get()
     return NextResponse.json({ data: { id: updated.id, ...updated.data() } })

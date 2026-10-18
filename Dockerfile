@@ -9,10 +9,19 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-# Build-time env vars baked into next.config.mjs's `env` block need to be
-# present at build time too (Next.js inlines them during `next build`).
-# Cloud Build / `docker build --build-arg` should pass these in; harmless
-# no-ops locally if left unset since nothing here needs them to compile.
+# NEXT_PUBLIC_* values are inlined into the client bundle by `next build`, so
+# they must exist HERE, not just at runtime. Without these ARGs the image ships
+# an undefined Firebase config and browser sign-in fails silently in production
+# while still working in `next dev`. Every other variable is read server-side
+# at runtime and must NOT be baked in.
+ARG NEXT_PUBLIC_FIREBASE_API_KEY
+ARG NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
+ARG NEXT_PUBLIC_FIREBASE_PROJECT_ID
+ARG NEXT_PUBLIC_FIREBASE_APP_ID
+ENV NEXT_PUBLIC_FIREBASE_API_KEY=$NEXT_PUBLIC_FIREBASE_API_KEY \
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=$NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN \
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID=$NEXT_PUBLIC_FIREBASE_PROJECT_ID \
+    NEXT_PUBLIC_FIREBASE_APP_ID=$NEXT_PUBLIC_FIREBASE_APP_ID
 RUN npm run build
 
 FROM node:20-alpine AS runner

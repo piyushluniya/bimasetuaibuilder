@@ -1,17 +1,10 @@
 /** @type {import('next').NextConfig} */
+// No `env` block on purpose: it inlines values at build time, which would bake
+// secrets into the image and make Cloud Run's runtime env vars inert. Every
+// variable above is read server-side at runtime; only NEXT_PUBLIC_* needs
+// build-time inlining, and Next.js does that natively.
 const nextConfig = {
-  output: "standalone",
-  env: {
-    GOOGLE_CLOUD_PROJECT: process.env.GOOGLE_CLOUD_PROJECT,
-    GOOGLE_CLOUD_LOCATION: process.env.GOOGLE_CLOUD_LOCATION,
-    GEMINI_MODEL: process.env.GEMINI_MODEL,
-    TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
-    TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
-    TWILIO_WHATSAPP_FROM: process.env.TWILIO_WHATSAPP_FROM,
-    GCS_BUCKET_NAME: process.env.GCS_BUCKET_NAME,
-    DOCUMENT_AI_LOCATION: process.env.DOCUMENT_AI_LOCATION,
-    DOCUMENT_AI_PROCESSOR_ID: process.env.DOCUMENT_AI_PROCESSOR_ID
-  }
+  output: "standalone"
 }
 
 export default nextConfig

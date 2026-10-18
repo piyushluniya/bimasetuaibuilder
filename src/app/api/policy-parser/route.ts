@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server"
 import { DocumentProcessorServiceClient } from "@google-cloud/documentai"
-import { adminDb } from "@/lib/firebase-admin"
+import { adminDb, requireUserId } from "@/lib/firebase-admin"
 import { getBucket } from "@/lib/gcs"
 import { callGemini } from "@/lib/gemini-vertex"
 
@@ -64,13 +64,25 @@ async function extractText(gcsKey: string): Promise<string> {
 }
 
 export async function POST(request: NextRequest) {
-  try {
-    const body = await request.json()
-    const { gcsKey, userId, policyId } = body
+  // Captured outside the try so the error path can still mark the policy failed
+  // — the request body is already consumed by then and can't be re-read.
+  let policyId: string | undefined
 
-    if (!gcsKey || !userId) {
-      return NextResponse.json({ error: "gcsKey and userId are required" }, { status: 400 })
+  try {
+    const userId = await requireUserId()
+    policyId = (await request.json()).policyId
+
+    if (!policyId) {
+      return NextResponse.json({ error: "policyId is required" }, { status: 400 })
     }
+
+    // gcsKey is read from the stored document, never taken from the caller, so
+    // a request can't be aimed at another user's file.
+    const policySnap = await adminDb().collection("userPolicies").doc(policyId).get()
+    if (!policySnap.exists || policySnap.data()?.userId !== userId) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 })
+    }
+    const gcsKey = policySnap.data()?.gcsKey as string
 
     console.log(`[policy-parser] Extracting text via Document AI for gs://${gcsKey}`)
     const extractedText = await extractText(gcsKey)
@@ -80,7 +92,7 @@ export async function POST(request: NextRequest) {
       : extractedText
     console.log(`[policy-parser] Text length after truncation: ${truncatedText.length} chars`)
 
-    const prompt = `You are an expert Indian insurance policy analyst. Parse the following insurance policy document and extract key information.
+    const prompt = `You are an expert insurance policy analyst. Parse the following insurance policy document and extract key information.
 
 POLICY DOCUMENT TEXT:
 ${truncatedText}
@@ -125,27 +137,26 @@ Return ONLY the JSON, no markdown, no explanation. Fill in "Not found" or 0 for 
     const parsed = JSON.parse(jsonMatch[0]) as ParsedCoverage
     console.log(`[policy-parser] Parsed policy — insurer: ${parsed.insurer} | type: ${parsed.policyType}`)
 
-    if (policyId) {
-      await adminDb().collection("userPolicies").doc(policyId).update({
-        parsedCoverage: JSON.stringify(parsed),
-        insurer: parsed.insurer,
-        status: "ready",
-        updatedAt: new Date().toISOString()
-      })
-      console.log(`[policy-parser] Firestore updated — policyId: ${policyId}, status: ready`)
-    }
+    await adminDb().collection("userPolicies").doc(policyId).update({
+      parsedCoverage: JSON.stringify(parsed),
+      insurer: parsed.insurer,
+      status: "ready",
+      updatedAt: new Date().toISOString()
+    })
+    console.log(`[policy-parser] Firestore updated — policyId: ${policyId}, status: ready`)
 
     return NextResponse.json({ success: true, data: parsed })
   } catch (error) {
     console.error("[policy-parser] Error:", error)
 
-    // Best-effort: mark the policy as errored so the UI stops polling
-    try {
-      const { policyId } = await request.clone().json()
-      if (policyId) {
-        await adminDb().collection("userPolicies").doc(policyId).update({ status: "error" })
-      }
-    } catch {}
+    // Mark the policy failed so the UI stops polling and shows an error state
+    if (policyId) {
+      await adminDb()
+        .collection("userPolicies")
+        .doc(policyId)
+        .update({ status: "error" })
+        .catch(() => {})
+    }
 
     return NextResponse.json(
       { error: "Policy parsing failed", message: error instanceof Error ? error.message : "Unknown error" },
