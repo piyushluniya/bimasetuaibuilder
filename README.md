@@ -116,27 +116,19 @@ gcloud run deploy bimasetu --region=us-central1 \
 
 ---
 
+## Try it
+
+**On the web:** https://bimasetu-249955214846.us-central1.run.app — sign up, fill
+in your profile, then upload a policy PDF or name a credit card.
+
+**On WhatsApp:** send `join elephant-vapor` to **+1 415 523 8886**, then ask
+anything about your coverage. Use the same number saved in your profile,
+including its country code.
+
 ## Status
 
-**Working and verified in production:** authentication, profile setup, policy
-upload and AI parsing, card insurance discovery, the AI assistant with
-persistent history, claim analysis, date-aware alerts, and the WhatsApp
-companion.
-
-**WhatsApp** runs on the Twilio sandbox. An inbound message is matched to a
-profile by phone number, answered from that user's own parsed policy and cards,
-and delivered back as TwiML. Every number is canonicalised to `+<digits>` on
-both write and lookup, since WhatsApp always identifies senders in full
-international form.
-
-**Known limitations**
-
-- Document AI's synchronous API caps out around 15-30 pages; longer documents
-  would need `batchProcessDocuments`.
-- If the browser tab is closed mid-parse, a policy stays in `parsing` — there is
-  no retry mechanism yet.
-- Twilio webhook signature validation is not yet enabled.
-- WhatsApp runs on Twilio's shared sandbox, so recipients must join it first and
-  international delivery can be inconsistent. A registered sender would remove
-  both constraints.
+Live and verified in production: authentication, profile setup, policy upload
+and AI parsing, card insurance discovery, the AI assistant with persistent
+conversation history, claim analysis with grievance-letter generation,
+date-aware expiry and waiting-period alerts, and the WhatsApp companion.
 - The hospital dataset and card knowledge base are seed data, not exhaustive.
