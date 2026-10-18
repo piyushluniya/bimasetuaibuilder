@@ -59,7 +59,7 @@ Generate a JSON response with this exact structure:
 }
 Return ONLY the JSON, no markdown, no explanation.`
 
-    const content = await callGemini({ prompt, maxTokens: 1024, temperature: 0.3 })
+    const content = await callGemini({ prompt, maxTokens: 4096, temperature: 0.3, json: true })
     const jsonMatch = content.match(/\{[\s\S]*\}/)
     if (!jsonMatch) throw new Error("Failed to extract JSON from Gemini response")
     const parsed = JSON.parse(jsonMatch[0])

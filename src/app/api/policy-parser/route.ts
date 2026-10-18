@@ -126,15 +126,26 @@ Extract and return a JSON object with this exact structure:
 Return ONLY the JSON, no markdown, no explanation. Fill in "Not found" or 0 for fields that cannot be determined.`
 
     console.log("[policy-parser] Calling Vertex AI for policy analysis...")
-    const content = await callGemini({ prompt, maxTokens: 2048, temperature: 0.1 })
+    // A full policy — covered procedures, exclusions, waiting periods, riders,
+    // highlights — does not fit in 2048 tokens. Truncated output used to fail
+    // as a JSON parse error midway through an array.
+    const content = await callGemini({ prompt, maxTokens: 8192, temperature: 0.1, json: true })
 
     const jsonMatch = content.match(/\{[\s\S]*\}/)
     if (!jsonMatch) {
-      console.error("[policy-parser] Failed to extract JSON from Vertex AI response:", content)
+      console.error("[policy-parser] No JSON object in Vertex AI response:", content.slice(0, 500))
       throw new Error("Failed to extract JSON from Vertex AI response")
     }
 
-    const parsed = JSON.parse(jsonMatch[0]) as ParsedCoverage
+    let parsed: ParsedCoverage
+    try {
+      parsed = JSON.parse(jsonMatch[0]) as ParsedCoverage
+    } catch (err) {
+      console.error(
+        `[policy-parser] JSON parse failed (${content.length} chars, likely truncated). Tail: ${content.slice(-300)}`
+      )
+      throw err
+    }
     console.log(`[policy-parser] Parsed policy — insurer: ${parsed.insurer} | type: ${parsed.policyType}`)
 
     await adminDb().collection("userPolicies").doc(policyId).update({

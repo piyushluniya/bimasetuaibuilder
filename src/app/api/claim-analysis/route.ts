@@ -51,7 +51,7 @@ Return ONLY the JSON, no markdown, no explanation.`
 
     let content: string
     try {
-      content = await callGemini({ prompt, maxTokens: 3000, temperature: 0.2 })
+      content = await callGemini({ prompt, maxTokens: 8192, temperature: 0.2, json: true })
     } catch (err) {
       console.error("[claim-analysis] Vertex AI error:", err)
       return NextResponse.json({ error: "Vertex AI error" }, { status: 500 })

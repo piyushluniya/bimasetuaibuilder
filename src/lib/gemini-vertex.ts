@@ -31,10 +31,14 @@ export interface GeminiCallParams {
   conversationHistory?: Array<{ role: string; content: string }>
   maxTokens?: number
   temperature?: number
+  // Constrains the model to emit strict JSON. Without it the response can
+  // arrive wrapped in markdown fences or with trailing prose, both of which
+  // break JSON.parse.
+  json?: boolean
 }
 
 export async function callGemini(params: GeminiCallParams): Promise<string> {
-  const { prompt, systemPrompt, conversationHistory = [], maxTokens = 1024, temperature = 0.7 } = params
+  const { prompt, systemPrompt, conversationHistory = [], maxTokens = 1024, temperature = 0.7, json = false } = params
 
   const contents: GeminiContent[] = []
   for (const msg of conversationHistory) {
@@ -61,6 +65,7 @@ export async function callGemini(params: GeminiCallParams): Promise<string> {
       config: {
         maxOutputTokens: maxTokens,
         temperature,
+        ...(json ? { responseMimeType: "application/json" } : {}),
         ...(systemPrompt ? { systemInstruction: systemPrompt } : {})
       }
     })
