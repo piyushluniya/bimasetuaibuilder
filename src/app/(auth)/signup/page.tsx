@@ -29,9 +29,19 @@ function SignUpForm() {
     }
     setLoading(true)
     try {
-      await createUserWithEmailAndPassword(auth, email, password)
-      toast({ title: "Account created!", description: "You can now sign in." })
-      router.push("/login")
+      // createUserWithEmailAndPassword already signs the user in client-side;
+      // exchanging the id token for the session cookie here means they land on
+      // the dashboard instead of being bounced to a login form.
+      const cred = await createUserWithEmailAndPassword(auth, email, password)
+      const idToken = await cred.user.getIdToken()
+      const res = await fetch("/api/auth/session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ idToken })
+      })
+      if (!res.ok) throw new Error("Failed to establish session")
+      toast({ title: "Welcome to BimaSetu!" })
+      router.push("/dashboard")
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Sign up failed"
       toast({ title: "Sign up failed", description: message, variant: "destructive" })

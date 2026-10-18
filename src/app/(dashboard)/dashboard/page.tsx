@@ -45,26 +45,16 @@ function CircularProgress({ percent, size = 80 }: { percent: number; size?: numb
   )
 }
 
-// The only place on this page that starts an action — the cards above explain
-// what each one unlocks, but never duplicate these buttons.
-const quickActions = [
-  { href: "/policies", icon: "credit_card", label: "Discover card insurance", sub: "Find cover you already have" },
-  { action: "upload" as const, icon: "upload_file", label: "Upload a policy", sub: "AI-powered parsing" },
-  { href: "/chat", icon: "forum", label: "Ask about my coverage", sub: "Coverage Q&A" },
-  { href: "/claims", icon: "gavel", label: "Analyze a claim rejection", sub: "Regulation-backed analysis" }
-]
-
 const POLICY_UNLOCKS = [
-  "Sum insured, room-rent caps and co-pay, pulled out automatically",
-  "Waiting periods and exclusions flagged before you need them",
-  "Renewal and expiry reminders so cover never lapses",
-  "Ask anything and get answers grounded in your own document"
+  "Sum insured, room rent and co-pay",
+  "Waiting periods and exclusions",
+  "Renewal reminders"
 ]
 
 const CARD_UNLOCKS = [
-  "Air accident and personal accident cover",
-  "Purchase protection and lost-card liability",
-  "Travel and emergency medical cover abroad"
+  "Air and personal accident cover",
+  "Purchase and lost-card protection",
+  "Travel and emergency medical"
 ]
 
 export default function DashboardPage() {
@@ -311,21 +301,30 @@ export default function DashboardPage() {
                   <Icon name="document_scanner" className="text-2xl leading-none" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="font-headline text-xl font-semibold text-primary mb-1">
-                    Your policy, finally in plain language
+                  <h3 className="font-headline text-xl font-semibold text-primary mb-3">
+                    Your policy, in plain language
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Upload the PDF once and Setu AI reads every clause for you — then tells you what
-                    it actually means.
-                  </p>
-                  <ul className="space-y-2">
+                  <ul className="flex flex-wrap gap-x-4 gap-y-1.5 mb-5">
                     {POLICY_UNLOCKS.map((item) => (
-                      <li key={item} className="flex gap-2 items-start text-sm text-foreground">
-                        <Icon name="check_circle" filled className="text-base leading-none text-secondary shrink-0 mt-0.5" />
+                      <li key={item} className="flex gap-1.5 items-center text-sm text-muted-foreground">
+                        <Icon name="check_circle" filled className="text-base leading-none text-secondary shrink-0" />
                         {item}
                       </li>
                     ))}
                   </ul>
+                  <Button disabled={uploading} onClick={() => fileInputRef.current?.click()} className="gap-2">
+                    {uploading ? (
+                      <>
+                        <Icon name="progress_activity" className="text-base leading-none animate-spin" />
+                        Uploading…
+                      </>
+                    ) : (
+                      <>
+                        <Icon name="upload_file" className="text-lg leading-none" />
+                        Upload a policy
+                      </>
+                    )}
+                  </Button>
                 </div>
               </div>
             )}
@@ -386,74 +385,29 @@ export default function DashboardPage() {
                   <Icon name="credit_card" className="text-2xl leading-none" />
                 </div>
                 <div className="min-w-0">
-                  <h3 className="font-headline text-xl font-semibold text-primary mb-1">
+                  <h3 className="font-headline text-xl font-semibold text-primary mb-3">
                     You may already be insured
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Premium cards bundle in cover that most people never claim, buried in the terms.
-                    Name your card and Setu AI digs it out.
-                  </p>
-                  <ul className="space-y-2">
+                  <ul className="flex flex-wrap gap-x-4 gap-y-1.5 mb-5">
                     {CARD_UNLOCKS.map((item) => (
-                      <li key={item} className="flex gap-2 items-start text-sm text-foreground">
-                        <Icon name="check_circle" filled className="text-base leading-none text-secondary shrink-0 mt-0.5" />
+                      <li key={item} className="flex gap-1.5 items-center text-sm text-muted-foreground">
+                        <Icon name="check_circle" filled className="text-base leading-none text-secondary shrink-0" />
                         {item}
                       </li>
                     ))}
                   </ul>
+                  <Button asChild className="gap-2">
+                    <Link href="/policies">
+                      <Icon name="credit_card" className="text-lg leading-none" />
+                      Discover card insurance
+                    </Link>
+                  </Button>
                 </div>
               </div>
             )}
           </section>
 
           {/* Quick Actions Grid */}
-          <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {quickActions.map((action, i) => {
-              const tileClass = cn(
-                "rounded-xl p-4 flex flex-col items-center justify-center gap-2 text-center min-h-[120px] transition-colors shadow-sm",
-                i === 0
-                  ? "col-span-2 md:col-span-1 bg-secondary text-secondary-foreground hover:bg-secondary/90"
-                  : "bg-card border border-border hover:bg-muted"
-              )
-              const iconClass = cn(
-                "text-3xl leading-none",
-                i === 0 ? "" : i === 3 ? "text-destructive" : "text-primary"
-              )
-              const body = (
-                <>
-                  <Icon
-                    name={uploading && "action" in action ? "progress_activity" : action.icon}
-                    className={cn(iconClass, uploading && "action" in action && "animate-spin")}
-                  />
-                  <span className="text-sm font-semibold leading-tight">{action.label}</span>
-                  <span
-                    className={cn(
-                      "text-xs leading-tight",
-                      i === 0 ? "text-secondary-foreground/80" : "text-muted-foreground"
-                    )}
-                  >
-                    {action.sub}
-                  </span>
-                </>
-              )
-
-              return "action" in action ? (
-                <button
-                  key={action.label}
-                  type="button"
-                  disabled={uploading}
-                  onClick={() => fileInputRef.current?.click()}
-                  className={tileClass}
-                >
-                  {body}
-                </button>
-              ) : (
-                <Link key={action.label} href={action.href} className={tileClass}>
-                  {body}
-                </Link>
-              )
-            })}
-          </section>
         </div>
 
         {/* Right Column: Secondary Cards (4 cols) */}
