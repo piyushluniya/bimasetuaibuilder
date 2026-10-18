@@ -120,12 +120,14 @@ gcloud run deploy bimasetu --region=us-central1 \
 
 **Working and verified in production:** authentication, profile setup, policy
 upload and AI parsing, card insurance discovery, the AI assistant with
-persistent history, claim analysis, and date-aware alerts.
+persistent history, claim analysis, date-aware alerts, and the WhatsApp
+companion.
 
-**WhatsApp:** the integration is complete and the webhook has been verified
-end-to-end — it matches an inbound number to a profile and answers from that
-user's parsed policy. Live delivery is currently blocked on Twilio's Trust Hub
-compliance approval, which is an account-level review outside the application.
+**WhatsApp** runs on the Twilio sandbox. An inbound message is matched to a
+profile by phone number, answered from that user's own parsed policy and cards,
+and delivered back as TwiML. Every number is canonicalised to `+<digits>` on
+both write and lookup, since WhatsApp always identifies senders in full
+international form.
 
 **Known limitations**
 
@@ -134,4 +136,7 @@ compliance approval, which is an account-level review outside the application.
 - If the browser tab is closed mid-parse, a policy stays in `parsing` — there is
   no retry mechanism yet.
 - Twilio webhook signature validation is not yet enabled.
+- WhatsApp runs on Twilio's shared sandbox, so recipients must join it first and
+  international delivery can be inconsistent. A registered sender would remove
+  both constraints.
 - The hospital dataset and card knowledge base are seed data, not exhaustive.
